@@ -15,8 +15,8 @@ return [
 
     'reset' => 'Su contraseña ha sido reseteada.',
     'sent' => 'Mail de reseteo enviado.',
-    'throttled' => 'Please wait before retrying.',
-    'token' => 'This password reset token is invalid.',
+    'throttled' => 'Por favor espere antes de reintentar.',
+    'token' => 'El token es inválido.',
     'user' => "Usuario no encontrado.",
 
 ];
