@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,5 +27,7 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
 Route::group([], function(){
     Route::get('/tasksUnsecure', [TaskController::class, 'index']);
 });
+
+Route::get('/status', [StatusController::class, 'status']);
 
 
