@@ -29,5 +29,6 @@ Route::group([], function(){
 });
 
 Route::get('/status', [StatusController::class, 'status']);
+Route::get('/roles', [StatusController::class, 'roles_publicos']);
 
 

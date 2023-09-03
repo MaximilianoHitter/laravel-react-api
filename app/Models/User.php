@@ -23,6 +23,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'last_name',
+        'profile_picture_url',
+        'json_socials',
+        'json_certificates',
+        'json_specialty',
+        'status'
     ];
 
     /**

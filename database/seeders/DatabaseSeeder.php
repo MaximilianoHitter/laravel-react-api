@@ -20,7 +20,12 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
-            'password' => Hash::make('admin')
+            'password' => Hash::make('admin'),
+            'last_name' => 'admin',
+            'json_socials' => '{}',
+            'json_certificates' => '{}',
+            'json_speciality' => '{}',
+            'status' => 'Activo'
         ])->assignRole('Admin');
 
         

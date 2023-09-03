@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Spatie\Permission\Models\Role;
 
 class RegisteredUserController extends Controller
 {
@@ -24,15 +25,22 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'last_name' => ['required', 'string', 'max:255']
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'last_name' => $request->last_name,
+            'json_socials' => '{}',
+            'json_certificates' => '{}',
+            'json_speciality' => '{}',
+            'status' => 'Activo',
         ]);
 
-        $user->assignRole('Trainer');
+        $rol = Role::find($request->rol_id);
+        $user->assignRole($rol);
 
         event(new Registered($user));
 
