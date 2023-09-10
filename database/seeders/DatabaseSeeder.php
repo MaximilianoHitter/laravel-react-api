@@ -21,10 +21,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => Hash::make('admin'),
-            'last_name' => 'admin',
-            'json_socials' => '{}',
-            'json_certificates' => '{}',
-            'json_speciality' => '{}',
             'status' => 'Activo'
         ])->assignRole('Admin');
 

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_student')->constrained('students');
             $table->foreignId('id_specialist')->constrained('specialists');
-            $table->varchar('status');
+            $table->string('status');
             $table->date('date');
             $table->timestamps();
         });
