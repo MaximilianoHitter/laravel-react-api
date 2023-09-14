@@ -12,7 +12,7 @@ class TrainerController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['trainers'=>Trainer::all()]);
     }
 
     /**
@@ -34,9 +34,10 @@ class TrainerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Trainer $trainer)
+    public function show($id_trainer)
     {
-        //
+        $trainer = Trainer::find($id_trainer);
+        return response()->json(['trainer'=>$trainer]);
     }
 
     /**
