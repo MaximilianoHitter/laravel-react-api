@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Trainer;
+use App\Models\TrainerStudent;
 use Illuminate\Http\Request;
 
 class TrainerController extends Controller
@@ -62,5 +63,15 @@ class TrainerController extends Controller
     public function destroy(Trainer $trainer)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function get_students_requests($id_trainer)
+    {
+        $trainer = Trainer::with('students')->find($id_trainer);
+        $peticiones = $trainer->students;
+        return $peticiones;
     }
 }

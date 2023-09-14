@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
@@ -23,9 +24,10 @@ class Student extends Model
         'updated_at'
     ];
 
-    public function trainer():HasOneThrough{
-        return $this->hasOneThrough(TrainerStudent::class, Trainer::class)->firstWhere('status', '=', 'Activo');
+    public function trainer():BelongsToMany{
+        return $this->belongsToMany(TrainerStudent::class, 'trainer_students')->withPivot('status', 'date');
     }
+
 
     public function goals():HasMany{
         return $this->hasMany(StudentGoal::class);

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -32,7 +33,8 @@ class Trainer extends Model
         return $this->hasMany(Certificate::class);
     }
 
-    public function students():HasManyThrough{
-        return $this->hasManyThrough( Student::class, TrainerStudent::class);
+    public function students():BelongsToMany{
+        return $this->belongsToMany(Student::class, 'trainer_students')->withPivot('status', 'date');
     }
+
 }
