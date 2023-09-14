@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TrainerRoutineController;
+use App\Models\TrainerRoutine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,5 +32,9 @@ Route::group([], function(){
 
 Route::get('/status', [StatusController::class, 'status']);
 Route::get('/roles', [StatusController::class, 'roles_publicos']);
+
+Route::group([], function(){
+    Route::post('/trainerroutinest', [TrainerRoutineController::class, 'store']);
+});
 
 

@@ -19,7 +19,6 @@ class TrainerRoutine extends Model
         'name',
         'initial_date',
         'final_date',
-        'id_payment',
         'id_routine_status',
         'amount'
     ];
@@ -28,8 +27,8 @@ class TrainerRoutine extends Model
         return $this->hasMany(RoutineEvents::class);
     }
 
-    public function payment():BelongsTo{
-        return $this->belongsTo(Payment::class);
+    public function payment():HasOne{
+        return $this->hasOne(Payment::class);
     }
 
     public function student():BelongsTo{

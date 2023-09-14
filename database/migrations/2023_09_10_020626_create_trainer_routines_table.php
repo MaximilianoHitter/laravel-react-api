@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('name');
             $table->date('final_date');
             $table->date('initial_date');
-            $table->foreignId('id_payment')->constrained('payments');
             $table->foreignId('id_routine_status')->constrained('statuses');
             $table->decimal('amount', 10, 2, false);
             $table->timestamps();
