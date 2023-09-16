@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TrainerCollection;
 use App\Models\Trainer;
 use App\Models\TrainerStudent;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class TrainerController extends Controller
     public function show($id_trainer)
     {
         $trainer = Trainer::find($id_trainer);
-        return response()->json(['trainer'=>$trainer]);
+        return response()->json($trainer);
     }
 
     /**
