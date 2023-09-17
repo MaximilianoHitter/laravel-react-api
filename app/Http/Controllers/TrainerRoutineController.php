@@ -50,13 +50,18 @@ class TrainerRoutineController extends Controller
         $cantidad_de_dias = $initial_date->diffInDays($final_date);
         $cantidad_de_dias+= 1;
         $descriptions = $request->descriptions;
+        $descriptions = explode('|', $descriptions);
         for ($i=0; $i <= $cantidad_de_dias; $i++) { 
             $date_event = $initial_date;
             $routine_event = new RoutineEvents();
             $routine_event->id_routine = $routine->id;
             $routine_event->date = $date_event->addDays($i);
             $routine_event->student_feedback = '';
-            $routine_event->description = $descriptions[0];
+            if(array_key_exists($i, $descriptions)){
+                $routine_event->description = $descriptions[$i];
+            }else{
+                $routine_event->description = $descriptions[0];
+            }
             $routine_event->save();
         }
     }

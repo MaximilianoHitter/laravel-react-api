@@ -25,7 +25,7 @@ class TrainerRoutineStoreRequest extends FormRequest
             'initial_date' => ['required', 'date', 'after_or_equal:today'],
             'final_date' => ['required', 'date', 'after_or_equal:today'],
             'name' => 'required',
-            'descriptions' => 'required|array',
+            'descriptions' => 'required',
             'id_student' => 'required|exists:students,id',
             'id_student_goal' => 'required|exists:student_goals,id',
             'amount' => 'required|numeric|gt:0'
