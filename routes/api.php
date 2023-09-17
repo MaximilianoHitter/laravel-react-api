@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\TrainerRoutineController;
@@ -44,6 +45,10 @@ Route::group([], function(){
     Route::get('/trainers', [TrainerController::class, 'index']);
     Route::get('/trainers/{id}', [TrainerController::class, 'show']);
     Route::get('/trainer_students/{id}', [TrainerController::class, 'get_students_requests']);
+});
+
+Route::group([], function(){
+    Route::post('/student_goals', [StudentController::class, 'get_goals']);
 });
 
 

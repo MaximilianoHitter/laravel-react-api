@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\StudentGoalCollection;
 use App\Models\Student;
+use App\Models\StudentGoal;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -61,5 +63,12 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //
+    }
+
+
+    public function get_goals(Request $request){
+        $student_id = $request->student_id;
+        $goals = StudentGoal::where('id_student', $student_id)->get();
+        return new StudentGoalCollection($goals);
     }
 }
