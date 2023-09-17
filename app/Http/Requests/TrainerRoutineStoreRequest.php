@@ -36,9 +36,9 @@ class TrainerRoutineStoreRequest extends FormRequest
     {
         return [
             'initial_date.required' => 'Debe completar con una fecha inicial',
-            'initial_date.after_or_equal:today' => 'La fecha inicial debe ser igual o mayor a la actual',
+            'initial_date.after_or_equal' => 'La fecha inicial debe ser igual o mayor a la actual',
             'final_date.required' => 'Debe completar con una fecha final',
-            'final_date.after_or_equal:today' => 'La fecha final debe ser igual o mayor a la actual',
+            'final_date.after_or_equal' => 'La fecha final debe ser igual o mayor a la actual',
             'name.required' => 'Debe ingresar un nombre',
             'id_student_goal.required' => 'Debe seleccionar un objetivo',
             'amount.required' => 'Debe ingresar un precio',
