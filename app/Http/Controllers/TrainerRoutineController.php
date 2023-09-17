@@ -10,6 +10,7 @@ use App\Models\TrainerRoutine;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\StudentRoutineCollection;
 
 class TrainerRoutineController extends Controller
 {
@@ -91,6 +92,6 @@ class TrainerRoutineController extends Controller
     public function rutinas_de_alumno(Request $request){
         //hay que validar que existe el alumno del id
         $rutinas = TrainerRoutine::where('id_trainer', 1)->where('id_student', $request->student_id)->get();
-        return $rutinas;
+        return New StudentRoutineCollection($rutinas);
     }
 }
