@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call(Rolseeder::class);
 
-        /* Status::factory()->create([
+        Status::create([
             'status' => 'Activo'
-        ]); */
+        ]);
 
         User::factory()->create([
             'name' => 'admin',

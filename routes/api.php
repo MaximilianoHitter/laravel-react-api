@@ -36,6 +36,8 @@ Route::get('/roles', [StatusController::class, 'roles_publicos']);
 
 Route::group([], function(){
     Route::post('/trainerroutinest', [TrainerRoutineController::class, 'store']);
+    Route::post('/validarfechas', [TrainerRoutineController::class, 'validar']);
+    Route::post('/student_routines', [TrainerRoutineController::class, 'rutinas_de_alumno']);
 });
 
 Route::group([], function(){
@@ -43,5 +45,7 @@ Route::group([], function(){
     Route::get('/trainers/{id}', [TrainerController::class, 'show']);
     Route::get('/trainer_students/{id}', [TrainerController::class, 'get_students_requests']);
 });
+
+
 
 

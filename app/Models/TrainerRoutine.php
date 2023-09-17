@@ -20,6 +20,7 @@ class TrainerRoutine extends Model
         'initial_date',
         'final_date',
         'id_routine_status',
+        'id_payment',
         'amount'
     ];
 

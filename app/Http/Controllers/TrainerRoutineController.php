@@ -28,8 +28,9 @@ class TrainerRoutineController extends Controller
     {
         $asd = $request;
         //return $request;
-        $user_id = 1;//Auth::user()->id;
+        $user_id = 3;//Auth::user()->id;
         $trainer = Trainer::where('id_user', $user_id)->first();
+        //return $trainer;
         $routine = new TrainerRoutine();
         $routine->id_student = $request->id_student;
         $routine->id_trainer = $trainer->id;
@@ -54,9 +55,13 @@ class TrainerRoutineController extends Controller
             $routine_event->id_routine = $routine->id;
             $routine_event->date = $date_event->addDays($i);
             $routine_event->student_feedback = '';
-            $routine_event->description = $descriptions[$i];
+            $routine_event->description = $descriptions[0];
             $routine_event->save();
         }
+    }
+
+    public function validar(TrainerRoutineStoreRequest $request){
+        return response()->json(['data'=>'Todo gut']);
     }
 
     /**
@@ -81,5 +86,11 @@ class TrainerRoutineController extends Controller
     public function destroy(TrainerRoutine $trainerRoutine)
     {
         //
+    }
+
+    public function rutinas_de_alumno(Request $request){
+        //hay que validar que existe el alumno del id
+        $rutinas = TrainerRoutine::where('id_trainer', 1)->where('id_student', $request->student_id)->get();
+        return $rutinas;
     }
 }
