@@ -31,4 +31,19 @@ class TrainerRoutineStoreRequest extends FormRequest
             'amount' => 'required|numeric|gt:0'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'initial_date.required' => 'Debe completar con una fecha inicial',
+            'initial_date.after_or_equal:today' => 'La fecha inicial debe ser igual o mayor a la actual',
+            'final_date.required' => 'Debe completar con una fecha final',
+            'final_date.after_or_equal:today' => 'La fecha final debe ser igual o mayor a la actual',
+            'name.required' => 'Debe ingresar un nombre',
+            'id_student_goal.required' => 'Debe seleccionar un objetivo',
+            'amount.required' => 'Debe ingresar un precio',
+            'amount.numeric' => 'El precio debe ser un número',
+            'amount.gt:0' => 'El precio debe ser mayor a cero'
+        ];
+    }
 }
