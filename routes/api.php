@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\TrainerRoutineController;
 use App\Models\TrainerRoutine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\PermissionServiceProvider;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['auth:sanctum'], function(){
+    Route::get('/permissions', [PermissionsController::class, 'index']);
 });
 
 Route::group(['middleware'=>'auth:sanctum'], function(){

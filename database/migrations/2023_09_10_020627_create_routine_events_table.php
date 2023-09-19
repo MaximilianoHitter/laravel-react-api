@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->foreignId('id_routine')->constrained('trainer_routines');
-            $table->longText('student_feedback');
+            $table->longText('student_feedback')->nullable();
             $table->longText('description');
             $table->timestamps();
         });
