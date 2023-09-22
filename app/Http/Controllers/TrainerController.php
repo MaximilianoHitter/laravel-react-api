@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\StudentRoutineCollection;
 use App\Http\Resources\TrainerCollection;
 use App\Models\Trainer;
 use App\Models\TrainerStudent;
@@ -69,8 +70,10 @@ class TrainerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function get_students_requests($id_trainer)
+    public function get_students_requests()
     {
+        //$id_user = Auth::id();
+        $id_trainer = 1;
         $trainer = Trainer::with('students')->find($id_trainer);
         $peticiones = $trainer->students;
         return $peticiones;
