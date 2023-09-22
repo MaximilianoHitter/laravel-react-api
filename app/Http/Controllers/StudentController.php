@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\StudentGoalCollection;
+use App\Http\Resources\StudentRoutineCollection;
 use App\Models\Student;
 use App\Models\StudentGoal;
+use App\Models\TrainerRoutine;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -70,5 +72,12 @@ class StudentController extends Controller
         $student_id = $request->student_id;
         $goals = StudentGoal::where('id_student', $student_id)->get();
         return new StudentGoalCollection($goals);
+    }
+
+    public function get_routines(Request $request){
+        //Harcodeado porque debería sacarse del Auth
+        $student_id = 1;
+        $rutinas = TrainerRoutine::where('id_student', $student_id)->get();
+        return new StudentRoutineCollection($rutinas);
     }
 }

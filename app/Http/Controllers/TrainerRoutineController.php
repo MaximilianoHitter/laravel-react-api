@@ -46,21 +46,25 @@ class TrainerRoutineController extends Controller
         $routine->save();
 
         $initial_date = Carbon::parse($request->initial_date);
+        $nueva_fecha_inicial = $initial_date->format('Y-m-d');
         $final_date = Carbon::parse($request->final_date);
         $cantidad_de_dias = $initial_date->diffInDays($final_date);
         $cantidad_de_dias+= 1;
         $descriptions = $request->descriptions;
         $descriptions = explode('|', $descriptions);
-        for ($i=0; $i <= $cantidad_de_dias; $i++) { 
-            $date_event = $initial_date;
+        for ($i=0; $i < $cantidad_de_dias; $i++) { 
+            $date_event = $nueva_fecha_inicial;
             $routine_event = new RoutineEvents();
             $routine_event->id_routine = $routine->id;
-            $routine_event->date = $date_event->addDays($i);
+            $nueva_fecha = Carbon::parse($date_event);
+            $nueva_fecha = $nueva_fecha->addDays($i);
+            $routine_event->date = $nueva_fecha;
+            $nueva_fecha = null;
             $routine_event->student_feedback = '';
             if(array_key_exists($i, $descriptions)){
-                $routine_event->description = $descriptions[$i];
+                $routine_event->description = trim($descriptions[$i]);
             }else{
-                $routine_event->description = $descriptions[0];
+                $routine_event->description = trim($descriptions[0]);
             }
             $routine_event->save();
         }
