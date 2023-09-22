@@ -49,7 +49,7 @@ class TrainerRoutineController extends Controller
         $nueva_fecha_inicial = $initial_date->format('Y-m-d');
         $final_date = Carbon::parse($request->final_date);
         $cantidad_de_dias = $initial_date->diffInDays($final_date);
-        $cantidad_de_dias+= 1;
+        // $cantidad_de_dias+= 1;
         $descriptions = $request->descriptions;
         $descriptions = explode('|', $descriptions);
         for ($i=0; $i < $cantidad_de_dias; $i++) { 
