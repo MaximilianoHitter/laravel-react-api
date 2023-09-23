@@ -11,6 +11,7 @@ class TrainerStudent extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'student_id',
         'trainer_id',
         'status',

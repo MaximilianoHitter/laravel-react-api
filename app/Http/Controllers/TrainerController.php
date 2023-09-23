@@ -6,10 +6,16 @@ use App\Http\Resources\StudentRoutineCollection;
 use App\Http\Resources\TrainerCollection;
 use App\Models\Trainer;
 use App\Models\TrainerStudent;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TrainerController extends Controller
 {
+    private $estados = [
+        1=>'Activo',
+        2=>'Inactivo',
+        3=>'Cancelado'
+    ];
     /**
      * Display a listing of the resource.
      */
@@ -76,6 +82,24 @@ class TrainerController extends Controller
         $id_trainer = 1;
         $trainer = Trainer::with('students')->find($id_trainer);
         $peticiones = $trainer->students;
-        return $peticiones;
+        $salida = [];
+        foreach ($peticiones as $key => $value) {
+            $value->status = $value->pivot->status;
+            $value->date = $value->pivot->date;
+            $value->pivot_id = $value->pivot->id;
+            $salida[] = $value;
+        }
+        return $salida;
+    }
+
+    public function change_status(Request $request){
+        $id_tupla = $request->id_tupla;
+        $estado = $request->estado;
+        $nuevo_estado = $this->estados[$estado];
+        $tupla = TrainerStudent::find($id_tupla);
+        $tupla->status = $nuevo_estado;
+        $tupla->date = Carbon::now()->format('Y-m-d');
+        $tupla->save();
+        return response()->json(['data'=>'success'], 200);
     }
 }

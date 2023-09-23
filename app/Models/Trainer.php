@@ -34,7 +34,7 @@ class Trainer extends Model
     }
 
     public function students():BelongsToMany{
-        return $this->belongsToMany(Student::class, 'trainer_students')->withPivot('status', 'date');
+        return $this->belongsToMany(Student::class, 'trainer_students')->withPivot('id','status', 'date');
     }
 
 }

@@ -51,6 +51,7 @@ Route::group([], function(){
     Route::get('/trainers', [TrainerController::class, 'index']);
     Route::get('/trainers/{id}', [TrainerController::class, 'show']);
     Route::get('/trainer_students', [TrainerController::class, 'get_students_requests']);
+    Route::post('/change_status', [TrainerController::class, 'change_status']);
 });
 
 Route::group([], function(){
