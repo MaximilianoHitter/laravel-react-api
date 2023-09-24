@@ -29,7 +29,7 @@ class TrainerRoutineController extends Controller
     {
         $asd = $request;
         //return $request;
-        $user_id = 4;//Auth::user()->id;
+        $user_id = Auth::id();//Auth::user()->id;
         $trainer = Trainer::where('id_user', $user_id)->first();
         //return $trainer;
         $routine = new TrainerRoutine();
@@ -71,10 +71,10 @@ class TrainerRoutineController extends Controller
 
 
         $routine->save();
-        //$cantidad_de_dias+= 1;
+        $cantidad_de_dias = $cantidad_de_dias+1;
         $descriptions = $request->descriptions;
         $descriptions = explode('|', $descriptions);
-        for ($i=0; $i < $cantidad_de_dias; $i++) { 
+        for ($i=0; $i <= $cantidad_de_dias; $i++) { 
             $date_event = $nueva_fecha_inicial;
             $routine_event = new RoutineEvents();
             $routine_event->trainer_routine_id = $routine->id;
