@@ -45,6 +45,7 @@ Route::group([], function(){
     Route::post('/trainerroutinest', [TrainerRoutineController::class, 'store']);
     Route::post('/student_routines', [TrainerRoutineController::class, 'rutinas_de_alumno']);
     Route::post('/trainerroutinedl', [TrainerRoutineController::class, 'destroy']);
+    Route::post('/trainer_routines', [TrainerRoutineController::class, 'rutinas_de_trainer']);
 });
 
 Route::group([], function(){
@@ -52,14 +53,17 @@ Route::group([], function(){
     Route::get('/trainers/{id}', [TrainerController::class, 'show']);
     Route::get('/trainer_students', [TrainerController::class, 'get_students_requests']);
     Route::post('/change_status', [TrainerController::class, 'change_status']);
-
+    Route::get('/certificates/{id_trainer}', [TrainerController::class, 'get_certificates']);
 });
 
 Route::group([], function(){
     Route::post('/student_goals', [StudentController::class, 'get_goals']);
+    Route::get('/get_student_goals', [StudentController::class, 'get_student_goals']);
     Route::get('/student_routines', [StudentController::class, 'get_routines']);
     Route::post('/asign_trainer', [StudentController::class, 'asign_trainer']);
     Route::post('/is_connected_trainer', [StudentController::class, 'is_connected_trainer']);
+    Route::get('/student_trainers', [StudentController::class, 'get_trainers']);
+    Route::post('/set_feedback', [StudentController::class, 'set_feedback']);
 });
 
 //Rutas de prueba

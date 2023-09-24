@@ -21,7 +21,8 @@ class TrainerRoutine extends Model
         'final_date',
         'id_routine_status',
         'id_payment',
-        'amount'
+        'amount',
+        'color'
     ];
 
     public function events():HasMany{

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\GeneralCollection;
 use App\Http\Resources\StudentGoalCollection;
 use App\Http\Resources\StudentRoutineCollection;
+use App\Models\RoutineEvents;
 use App\Models\Student;
 use App\Models\StudentGoal;
 use App\Models\Trainer;
@@ -78,8 +80,14 @@ class StudentController extends Controller
         return new StudentGoalCollection($goals);
     }
 
-    public function get_routines(Request $request)
-    {
+    public function get_student_goals(){
+        //obtener por Auth despues
+        $student_id = 1;
+        $goals = StudentGoal::where('id_student', $student_id)->get();
+        return new StudentGoalCollection($goals);
+    }
+
+    public function get_routines(Request $request){
         //Harcodeado porque debería sacarse del Auth
         $student_id = 1;
         $rutinas = TrainerRoutine::with('events')
@@ -113,5 +121,21 @@ class StudentController extends Controller
         } else {
             return response()->json(['data' => false]);
         }
+    }
+
+    public function get_trainers(){
+        $id_student=1;
+        $student = Student::with('trainers')->find($id_student);
+        $trainers = $student->trainers;
+        return new GeneralCollection($trainers);
+    }
+
+    public function set_feedback(Request $request){
+        $event_id = $request->id_evento;
+        $feedback = $request->feedback;
+        $evento = RoutineEvents::find($event_id);
+        $evento->student_feedback = $feedback;
+        $evento->save();
+        return response()->json(['data'=>'success'], 200);
     }
 }

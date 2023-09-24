@@ -119,7 +119,8 @@ class DatabaseSeeder extends Seeder
             'id_routine_status'=>1,
             'id_payment'=>null,
             'amount'=>1500,
-            'description'=>'Hacer el dia 1 | Hacer el dia 2 | Hacer el dia 3'
+            'description'=>'Hacer el dia 1 | Hacer el dia 2 | Hacer el dia 3',
+            'color'=> '#FF0000'
         ]);
 
         RoutineEvents::create([

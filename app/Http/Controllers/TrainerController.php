@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\GeneralCollection;
 use App\Http\Resources\StudentRoutineCollection;
 use App\Http\Resources\TrainerCollection;
+use App\Models\Certificate;
 use App\Models\Trainer;
 use App\Models\TrainerStudent;
 use Carbon\Carbon;
@@ -46,6 +48,10 @@ class TrainerController extends Controller
     public function show($id_trainer)
     {
         $trainer = Trainer::find($id_trainer);
+        $cantidad_alumnos = TrainerStudent::where('trainer_id', $trainer->id)->where('status', 'Activo')->count();
+        $trainer->qty_students = $cantidad_alumnos;
+        $cantidad_certificados = Certificate::where('id_trainer', $trainer->id)->count();
+        $trainer->qty_certificates = $cantidad_certificados;
         return response()->json($trainer);
     }
 
@@ -101,5 +107,10 @@ class TrainerController extends Controller
         $tupla->date = Carbon::now()->format('Y-m-d');
         $tupla->save();
         return response()->json(['data'=>'success'], 200);
+    }
+
+    public function get_certificates($id_trainer){
+        $certificates = Certificate::where('id_trainer', $id_trainer)->get();
+        return new GeneralCollection($certificates);
     }
 }

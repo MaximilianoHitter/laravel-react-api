@@ -28,7 +28,8 @@ class TrainerRoutineStoreRequest extends FormRequest
             'descriptions' => 'required',
             'id_student' => 'required|exists:students,id',
             'id_student_goal' => 'required|exists:student_goals,id',
-            'amount' => 'required|numeric|gt:0'
+            'amount' => 'required|numeric|gt:0',
+            'color' => 'sometimes'
         ];
     }
 
