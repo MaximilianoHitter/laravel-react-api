@@ -52,7 +52,7 @@ Route::group([], function(){
     Route::get('/trainers/{id}', [TrainerController::class, 'show']);
     Route::get('/trainer_students', [TrainerController::class, 'get_students_requests']);
     Route::post('/change_status', [TrainerController::class, 'change_status']);
-
+    Route::get('/certificates/{id_trainer}', [TrainerController::class, 'get_certificates']);
 });
 
 Route::group([], function(){
