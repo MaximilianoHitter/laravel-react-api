@@ -16,7 +16,10 @@ class Student extends Model
         'id_user',
         'name',
         'last_name',
-        'profile_picture_url'
+        'profile_picture_url',
+        'day_of_birth',
+        'weight',
+        'height'
     ];
 
     protected $hidden = [

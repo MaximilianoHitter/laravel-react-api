@@ -37,36 +37,42 @@ class DatabaseSeeder extends Seeder
         ])->assignRole('Admin');
 
         User::factory()->create([
-            'name' => 'pepito',
-            'email' => 'pepito@admin.com',
+            'name' => 'merrin',
+            'email' => 'merrin@admin.com',
             'password' => Hash::make('admin'),
             'status' => 'Activo'
         ])->assignRole('Alumno');
 
         User::factory()->create([
-            'name' => 'pipito',
-            'email' => 'pipito@admin.com',
+            'name' => 'pipin',
+            'email' => 'pipin@admin.com',
             'password' => Hash::make('admin'),
             'status' => 'Activo'
         ])->assignRole('Alumno');
 
         Student::create([
             'id_user' => 2,
-            'name' => 'Pepito',
-            'last_name' => 'Fuentes',
-            'profile_picture_url' => ''
+            'name' => 'Merrin',
+            'last_name' => 'Brandigamo',
+            'profile_picture_url' => '',
+            'day_of_birth' => '2000-05-14',
+            'weigth' => 70.50,
+            'height' => 60.50
         ]);
 
         Student::create([
             'id_user' => 3,
-            'name' => 'Pipito',
-            'last_name' => 'Paredes',
-            'profile_picture_url' => ''
+            'name' => 'Pipin',
+            'last_name' => 'Tuk',
+            'profile_picture_url' => '',
+            'day_of_birth' => '1996-05-14',
+            'weight' => 75.60,
+            'height' => 65.20
         ]);
 
         StudentGoal::create([
             'id_student' => 2,
-            'name' => 'Subit de peso',
+            'name' => 'Conseguir cerveza',
             'description' => 'asd',
             'goal_status' => 'Iniciado'
         ]);
@@ -79,17 +85,21 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'juansito',
-            'email' => 'juansito@admin.com',
+            'name' => 'legolas',
+            'email' => 'legolas@admin.com',
             'password' => Hash::make('admin'),
             'status' => 'Activo'
         ])->assignRole('Trainer');
 
         Trainer::create([
             'id_user' => 4,
-            'name' => 'Juansito',
-            'last_name' => 'Shupa',
-            'profile_picture_url' => ''
+            'name' => 'Legolas',
+            'last_name' => 'Hojaverde',
+            'profile_picture_url' => '',
+            'day_of_birth' => '1994-04-11',
+            'weight' => 45.50,
+            'height' => 178.5,
+            'description' => 'Especialista en Tonificar los cojone'
         ]);
 
         TrainerStudent::create([
@@ -108,7 +118,8 @@ class DatabaseSeeder extends Seeder
             'initial_date'=>'2023-09-19',
             'id_routine_status'=>1,
             'id_payment'=>null,
-            'amount'=>1500
+            'amount'=>1500,
+            'description'=>'Hacer el dia 1 | Hacer el dia 2 | Hacer el dia 3'
         ]);
 
         RoutineEvents::create([

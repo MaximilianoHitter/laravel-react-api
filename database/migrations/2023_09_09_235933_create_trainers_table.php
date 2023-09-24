@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('last_name');
             $table->string('profile_picture_url');
+            $table->date('day_of_birth');
+            $table->float('weight', 5, 2);
+            $table->float('height', 5, 2);
+            $table->longtext('description');
             $table->timestamps();
         });
     }

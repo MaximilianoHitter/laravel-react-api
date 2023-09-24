@@ -30,20 +30,19 @@ Route::group([], function(){
     Route::get('/permissions/{url}', [PermissionsController::class, 'index']);
 });
 
-Route::group(['middleware'=>'auth:sanctum'], function(){
+/* Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::get('/tasks', [TaskController::class, 'index']);
 });
 
 Route::group([], function(){
     Route::get('/tasksUnsecure', [TaskController::class, 'index']);
-});
+}); */
 
 Route::get('/status', [StatusController::class, 'status']);
 Route::get('/roles', [StatusController::class, 'roles_publicos']);
 
 Route::group([], function(){
     Route::post('/trainerroutinest', [TrainerRoutineController::class, 'store']);
-    Route::post('/validarfechas', [TrainerRoutineController::class, 'validar']);
     Route::post('/student_routines', [TrainerRoutineController::class, 'rutinas_de_alumno']);
     Route::post('/trainerroutinedl', [TrainerRoutineController::class, 'destroy']);
 });

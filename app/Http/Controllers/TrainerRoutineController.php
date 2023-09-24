@@ -43,6 +43,7 @@ class TrainerRoutineController extends Controller
         $routine->id_routine_status = $status->id;
         $routine->amount = $request->amount;
         $routine->id_payment = null;
+        $routine->description = $request->descriptions;
         
 
         $initial_date = Carbon::parse($request->initial_date);
@@ -88,10 +89,6 @@ class TrainerRoutineController extends Controller
             }
             $routine_event->save();
         }
-    }
-
-    public function validar(TrainerRoutineStoreRequest $request){
-        return response()->json(['data'=>'Todo gut']);
     }
 
     /**

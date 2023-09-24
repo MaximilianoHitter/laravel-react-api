@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('id_routine_status')->constrained('statuses');
             $table->integer('id_payment')->nullable();
             $table->decimal('amount', 10, 2, false);
+            $table->longtext('description');
             $table->timestamps();
         });
     }
