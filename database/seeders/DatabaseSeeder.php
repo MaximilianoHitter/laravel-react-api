@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Brandigamo',
             'profile_picture_url' => '',
             'day_of_birth' => '2000-05-14',
-            'weigth' => 70.50,
+            'weight' => 70.50,
             'height' => 60.50
         ]);
 
