@@ -71,20 +71,25 @@ class StudentController extends Controller
     }
 
 
-    public function get_goals(Request $request){
+    public function get_goals(Request $request)
+    {
         $student_id = $request->student_id;
         $goals = StudentGoal::where('id_student', $student_id)->get();
         return new StudentGoalCollection($goals);
     }
 
-    public function get_routines(Request $request){
+    public function get_routines(Request $request)
+    {
         //Harcodeado porque debería sacarse del Auth
         $student_id = 1;
-        $rutinas = TrainerRoutine::with('events')->where('id_student', $student_id)->get();
+        $rutinas = TrainerRoutine::with('events')
+            ->where('id_student', $student_id)
+            ->get();
         return new StudentRoutineCollection($rutinas);
     }
 
-    public function asign_trainer(Request $request){
+    public function asign_trainer(Request $request)
+    {
         $trainer = Trainer::find($request->trainer_id);
         $student_id = 2;
         $trainer_student = new TrainerStudent();
@@ -93,6 +98,20 @@ class StudentController extends Controller
         $trainer_student->status = 'Inactivo';
         $trainer_student->date = Carbon::now()->format('Y-m-d');
         $trainer_student->save();
-        return response()->json(['data'=>'success'], 200);
+        return response()->json(['data' => 'success'], 200);
+    }
+
+    public function is_connected_trainer(Request $request)
+    {
+        $trainer = Trainer::find($request->trainer_id);
+        $student_id = 2;
+        $trainer_student = TrainerStudent::where('student_id', $student_id)
+            ->where('trainer_id', $trainer->id)
+            ->first();
+        if ($trainer_student) {
+            return response()->json(['data' => true]);
+        } else {
+            return response()->json(['data' => false]);
+        }
     }
 }
