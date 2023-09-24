@@ -21,10 +21,11 @@ class RolSeeder extends Seeder
         $role5=Role::create(['name' => 'Alumno']); 
         $role6=Role::create(['name' => 'Guest']); 
 
-        Permission::create(['name'=>'/todo'])->assignRole([$role1]);
-        Permission::create(['name'=>'/calendario'])->assignRole([$role2]);
-        Permission::create(['name'=>'/trainers'])->assignRole([$role5, $role1]);
-        Permission::create(['name'=>'/trainers/{id}'])->assignRole([$role5]);
+        Permission::create(['name'=>'todo'])->assignRole([$role1]);
+        Permission::create(['name'=>'calendario'])->assignRole([$role2]);
+        Permission::create(['name'=>'trainers'])->assignRole([$role5, $role1]);
+        Permission::create(['name'=>'trainers/{id}'])->assignRole([$role5]);
+        Permission::create(['name'=>'student_routines'])->assignRole([$role5]);
 
         /* $permission = Permission::create(['name' => 'PermisoAdmin'])->assignRole([$role1]);
         $permission = Permission::create(['name' => 'PermisoTrainer'])->assignRole([$role2]);
