@@ -27,7 +27,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::group([], function(){
-    Route::get('/permissions/{url}', [PermissionsController::class, 'index']);
+    Route::post('/permissions', [PermissionsController::class, 'index']);
 });
 
 /* Route::group(['middleware'=>'auth:sanctum'], function(){

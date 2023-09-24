@@ -8,10 +8,11 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionsController extends Controller
 {
-    public function index($url){
+    public function index(Request $request)
+    {
         /* $user = Auth::user();
         $perms = $user->obtener_permisos();
         return response()->json(['perms' => $perms]); */
-        return response()->json(['perms' => $url]);
+        return response()->json(['perms' => $request->url]);
     }
 }
