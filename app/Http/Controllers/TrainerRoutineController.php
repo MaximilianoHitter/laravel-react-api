@@ -19,7 +19,7 @@ class TrainerRoutineController extends Controller
      */
     public function index()
     {
-        //
+        return TrainerRoutine::with('events')->get();
     }
 
     /**
@@ -29,7 +29,7 @@ class TrainerRoutineController extends Controller
     {
         $asd = $request;
         //return $request;
-        $user_id = 3;//Auth::user()->id;
+        $user_id = 4;//Auth::user()->id;
         $trainer = Trainer::where('id_user', $user_id)->first();
         //return $trainer;
         $routine = new TrainerRoutine();
@@ -69,13 +69,13 @@ class TrainerRoutineController extends Controller
 
 
         $routine->save();
-        // $cantidad_de_dias+= 1;
+        //$cantidad_de_dias+= 1;
         $descriptions = $request->descriptions;
         $descriptions = explode('|', $descriptions);
         for ($i=0; $i < $cantidad_de_dias; $i++) { 
             $date_event = $nueva_fecha_inicial;
             $routine_event = new RoutineEvents();
-            $routine_event->id_routine = $routine->id;
+            $routine_event->trainer_routine_id = $routine->id;
             $nueva_fecha = Carbon::parse($date_event);
             $nueva_fecha = $nueva_fecha->addDays($i);
             $routine_event->date = $nueva_fecha;
@@ -113,14 +113,17 @@ class TrainerRoutineController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TrainerRoutine $trainerRoutine)
+    public function destroy(Request $request)
     {
-        //
+        $trainer_routine = TrainerRoutine::find($request->rutina_id);
+        RoutineEvents::where('trainer_routine_id', $trainer_routine->id)->delete();
+        $trainer_routine->delete();
+        return response()->json(['data'=>'success'], 200);
     }
 
     public function rutinas_de_alumno(Request $request){
         //hay que validar que existe el alumno del id
-        $rutinas = TrainerRoutine::where('id_trainer', 1)->where('id_student', $request->student_id)->get();
+        $rutinas = TrainerRoutine::with('events')->where('id_trainer', 1)->where('id_student', $request->student_id)->get();
         return New StudentRoutineCollection($rutinas);
     }
 }

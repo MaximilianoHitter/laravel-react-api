@@ -102,10 +102,10 @@ class DatabaseSeeder extends Seeder
         TrainerRoutine::create([
             'id_student'=>1,
             'id_trainer'=>1,
-            'id_student_goal'=>1,
+            'id_student_goal'=>2,
             'name'=>'Perder peso',
-            'final_date'=>'2023-09-19',
-            'initial_date'=>'2023-09-21',
+            'final_date'=>'2023-09-21',
+            'initial_date'=>'2023-09-19',
             'id_routine_status'=>1,
             'id_payment'=>null,
             'amount'=>1500
@@ -113,21 +113,21 @@ class DatabaseSeeder extends Seeder
 
         RoutineEvents::create([
             'date'=>'2023-09-19',
-            'id_routine'=>1,
+            'trainer_routine_id'=>1,
             'student_feedback'=>null,
             'description'=>'Hacer el dia 1'
         ]);
 
         RoutineEvents::create([
             'date'=>'2023-09-20',
-            'id_routine'=>1,
+            'trainer_routine_id'=>1,
             'student_feedback'=>null,
             'description'=>'Hacer el dia 2'
         ]);
 
         RoutineEvents::create([
             'date'=>'2023-09-21',
-            'id_routine'=>1,
+            'trainer_routine_id'=>1,
             'student_feedback'=>null,
             'description'=>'Hacer el dia 3'
         ]);

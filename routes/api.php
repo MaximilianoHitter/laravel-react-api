@@ -45,6 +45,7 @@ Route::group([], function(){
     Route::post('/trainerroutinest', [TrainerRoutineController::class, 'store']);
     Route::post('/validarfechas', [TrainerRoutineController::class, 'validar']);
     Route::post('/student_routines', [TrainerRoutineController::class, 'rutinas_de_alumno']);
+    Route::post('/trainerroutinedl', [TrainerRoutineController::class, 'destroy']);
 });
 
 Route::group([], function(){
@@ -52,6 +53,7 @@ Route::group([], function(){
     Route::get('/trainers/{id}', [TrainerController::class, 'show']);
     Route::get('/trainer_students', [TrainerController::class, 'get_students_requests']);
     Route::post('/change_status', [TrainerController::class, 'change_status']);
+
 });
 
 Route::group([], function(){
@@ -59,6 +61,9 @@ Route::group([], function(){
     Route::get('/student_routines', [StudentController::class, 'get_routines']);
     Route::post('/asign_trainer', [StudentController::class, 'asign_trainer']);
 });
+
+//Rutas de prueba
+Route::get('/all', [TrainerRoutineController::class, 'index']);
 
 
 

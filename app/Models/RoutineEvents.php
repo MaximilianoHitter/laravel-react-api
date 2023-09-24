@@ -10,7 +10,7 @@ class RoutineEvents extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_routine',
+        'trainer_routine_id',
         'date',
         'student_feedback',
         'description'

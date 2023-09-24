@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('routine_events', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->foreignId('id_routine')->constrained('trainer_routines');
+            $table->foreignId('trainer_routine_id')->constrained('trainer_routines');
             $table->longText('student_feedback')->nullable();
             $table->longText('description');
             $table->timestamps();

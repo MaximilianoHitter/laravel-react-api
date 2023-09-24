@@ -80,7 +80,7 @@ class StudentController extends Controller
     public function get_routines(Request $request){
         //Harcodeado porque debería sacarse del Auth
         $student_id = 1;
-        $rutinas = TrainerRoutine::where('id_student', $student_id)->get();
+        $rutinas = TrainerRoutine::with('events')->where('id_student', $student_id)->get();
         return new StudentRoutineCollection($rutinas);
     }
 
