@@ -44,6 +44,7 @@ class TrainerRoutineController extends Controller
         $routine->amount = $request->amount;
         $routine->id_payment = null;
         $routine->description = $request->descriptions;
+        $routine->color = $request->color;
         
 
         $initial_date = Carbon::parse($request->initial_date);
@@ -122,5 +123,14 @@ class TrainerRoutineController extends Controller
         //hay que validar que existe el alumno del id
         $rutinas = TrainerRoutine::with('events')->where('id_trainer', 1)->where('id_student', $request->student_id)->get();
         return New StudentRoutineCollection($rutinas);
+    }
+
+    public function rutinas_de_trainer(Request $request){
+        //hay que validar que existe el alumno del id
+        $trainer_id = $request->trainer_id;
+        $eventos = RoutineEvents::with('routine')->whereHas('routine', function($query) use ($trainer_id){
+            $query->where('id_trainer', $trainer_id)->where('id_student', 1);
+        })->get();
+        return new StudentRoutineCollection($eventos);
     }
 }

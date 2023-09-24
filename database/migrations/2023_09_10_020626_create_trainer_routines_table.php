@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('id_payment')->nullable();
             $table->decimal('amount', 10, 2, false);
             $table->longtext('description');
+            $table->string('color');
             $table->timestamps();
         });
     }
