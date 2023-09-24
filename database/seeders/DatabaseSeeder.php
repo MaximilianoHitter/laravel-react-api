@@ -95,7 +95,7 @@ class DatabaseSeeder extends Seeder
             'id_user' => 4,
             'name' => 'Legolas',
             'last_name' => 'Hojaverde',
-            'profile_picture_url' => '',
+            'profile_picture_url' => 'https://images.unsplash.com/photo-1645544622368-c4b690a13e67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8TGVnb2xhc3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80',
             'day_of_birth' => '1994-04-11',
             'weight' => 45.50,
             'height' => 178.5,
