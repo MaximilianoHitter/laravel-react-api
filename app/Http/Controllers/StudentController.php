@@ -6,7 +6,10 @@ use App\Http\Resources\StudentGoalCollection;
 use App\Http\Resources\StudentRoutineCollection;
 use App\Models\Student;
 use App\Models\StudentGoal;
+use App\Models\Trainer;
 use App\Models\TrainerRoutine;
+use App\Models\TrainerStudent;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -79,5 +82,17 @@ class StudentController extends Controller
         $student_id = 1;
         $rutinas = TrainerRoutine::where('id_student', $student_id)->get();
         return new StudentRoutineCollection($rutinas);
+    }
+
+    public function asign_trainer(Request $request){
+        $trainer = Trainer::find($request->trainer_id);
+        $student_id = 2;
+        $trainer_student = new TrainerStudent();
+        $trainer_student->student_id = $student_id;
+        $trainer_student->trainer_id = $trainer->id;
+        $trainer_student->status = 'Inactivo';
+        $trainer_student->date = Carbon::now()->format('Y-m-d');
+        $trainer_student->save();
+        return response()->json(['data'=>'success'], 200);
     }
 }

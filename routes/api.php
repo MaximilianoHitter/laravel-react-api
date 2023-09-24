@@ -57,6 +57,7 @@ Route::group([], function(){
 Route::group([], function(){
     Route::post('/student_goals', [StudentController::class, 'get_goals']);
     Route::get('/student_routines', [StudentController::class, 'get_routines']);
+    Route::post('/asign_trainer', [StudentController::class, 'asign_trainer']);
 });
 
 

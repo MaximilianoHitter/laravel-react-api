@@ -43,12 +43,32 @@ class TrainerRoutineController extends Controller
         $routine->id_routine_status = $status->id;
         $routine->amount = $request->amount;
         $routine->id_payment = null;
-        $routine->save();
+        
 
         $initial_date = Carbon::parse($request->initial_date);
         $nueva_fecha_inicial = $initial_date->format('Y-m-d');
         $final_date = Carbon::parse($request->final_date);
         $cantidad_de_dias = $initial_date->diffInDays($final_date);
+        //ver que las fechas de la rutina no estén intercambiadas
+        if($initial_date > $final_date){
+            return response()->json(['errors'=>['initial_date'=>'La fecha de inicio no puede ser mayor a la fecha de fin', 'final_date'=>'La fecha de fin no puede ser menor a la fecha de inicio']], 422);
+        }
+        //ver que las fechas no estén dentro de otra rutina 
+        $rutinas_entrecruzadas_initial = TrainerRoutine::where('id_trainer', $trainer->id)
+        ->where('id_student', $request->id_student)
+        ->whereDate('initial_date', '<=', $initial_date)->whereDate('final_date', '>=', $initial_date)->get();
+        if(count($rutinas_entrecruzadas_initial) > 0){
+            return response()->json(['errors'=>['initial_date'=>'La fecha de inicio se encuentra dentro de otra rutina']], 422);
+        }
+        $rutinas_entrecruzadas_final = TrainerRoutine::where('id_trainer', $trainer->id)
+        ->where('id_student', $request->id_student)
+        ->whereDate('initial_date', '<=', $final_date)->whereDate('final_date', '>=', $final_date)->get();
+        if(count($rutinas_entrecruzadas_final) > 0){
+            return response()->json(['errors'=>['final_date'=>'La fecha de fin se encuentra dentro de otra rutina']], 422);
+        }
+
+
+        $routine->save();
         // $cantidad_de_dias+= 1;
         $descriptions = $request->descriptions;
         $descriptions = explode('|', $descriptions);

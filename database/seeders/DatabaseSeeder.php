@@ -43,11 +43,32 @@ class DatabaseSeeder extends Seeder
             'status' => 'Activo'
         ])->assignRole('Alumno');
 
+        User::factory()->create([
+            'name' => 'pipito',
+            'email' => 'pipito@admin.com',
+            'password' => Hash::make('admin'),
+            'status' => 'Activo'
+        ])->assignRole('Alumno');
+
         Student::create([
             'id_user' => 2,
             'name' => 'Pepito',
             'last_name' => 'Fuentes',
             'profile_picture_url' => ''
+        ]);
+
+        Student::create([
+            'id_user' => 3,
+            'name' => 'Pipito',
+            'last_name' => 'Paredes',
+            'profile_picture_url' => ''
+        ]);
+
+        StudentGoal::create([
+            'id_student' => 2,
+            'name' => 'Subit de peso',
+            'description' => 'asd',
+            'goal_status' => 'Iniciado'
         ]);
 
         StudentGoal::create([
@@ -65,7 +86,7 @@ class DatabaseSeeder extends Seeder
         ])->assignRole('Trainer');
 
         Trainer::create([
-            'id_user' => 3,
+            'id_user' => 4,
             'name' => 'Juansito',
             'last_name' => 'Shupa',
             'profile_picture_url' => ''
