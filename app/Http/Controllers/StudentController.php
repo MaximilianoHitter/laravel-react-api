@@ -13,6 +13,7 @@ use App\Models\TrainerRoutine;
 use App\Models\TrainerStudent;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -82,16 +83,17 @@ class StudentController extends Controller
 
     public function get_student_goals(){
         //obtener por Auth despues
-        $student_id = 1;
-        $goals = StudentGoal::where('id_student', $student_id)->get();
+        $user_id = Auth::id();
+        $student = Student::find('id_user', $user_id)->get();
+        $goals = StudentGoal::where('id_student', $student->id)->get();
         return new StudentGoalCollection($goals);
     }
 
     public function get_routines(Request $request){
-        //Harcodeado porque debería sacarse del Auth
-        $student_id = 1;
+        $user_id = Auth::id();
+        $student = Student::find('id_user', $user_id)->get();
         $rutinas = TrainerRoutine::with('events')
-            ->where('id_student', $student_id)
+            ->where('id_student', $student->id)
             ->get();
         return new StudentRoutineCollection($rutinas);
     }
@@ -99,9 +101,10 @@ class StudentController extends Controller
     public function asign_trainer(Request $request)
     {
         $trainer = Trainer::find($request->trainer_id);
-        $student_id = 2;
+        $user_id = Auth::id();
+        $student = Student::find('id_user', $user_id)->get();
         $trainer_student = new TrainerStudent();
-        $trainer_student->student_id = $student_id;
+        $trainer_student->student_id = $student->id;
         $trainer_student->trainer_id = $trainer->id;
         $trainer_student->status = 'Inactivo';
         $trainer_student->date = Carbon::now()->format('Y-m-d');
@@ -112,8 +115,9 @@ class StudentController extends Controller
     public function is_connected_trainer(Request $request)
     {
         $trainer = Trainer::find($request->trainer_id);
-        $student_id = 2;
-        $trainer_student = TrainerStudent::where('student_id', $student_id)
+        $user_id = Auth::id();
+        $student = Student::find('id_user', $user_id)->get();
+        $trainer_student = TrainerStudent::where('student_id', $student->id)
             ->where('trainer_id', $trainer->id)
             ->first();
         if ($trainer_student) {

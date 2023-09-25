@@ -10,6 +10,7 @@ use App\Models\Trainer;
 use App\Models\TrainerStudent;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TrainerController extends Controller
 {
@@ -85,8 +86,9 @@ class TrainerController extends Controller
     public function get_students_requests()
     {
         //$id_user = Auth::id();
-        $id_trainer = 1;
-        $trainer = Trainer::with('students')->find($id_trainer);
+        $user_id = Auth::id();
+        $trainer = Trainer::find('id_user', $user_id);
+        //$trainer = Trainer::with('students')->find($id_trainer);
         $peticiones = $trainer->students;
         $salida = [];
         foreach ($peticiones as $key => $value) {
