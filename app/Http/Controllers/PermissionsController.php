@@ -12,22 +12,21 @@ class PermissionsController extends Controller
     public function index(Request $request)
     {
         $user_id = Auth::id();
-        if($user_id == null){
-            return response()->json(['data' => false]); 
+        if ($user_id == null) {
+            return response()->json(['data' => false]);
         }
         /* $perms = $user->obtener_permisos();
         return response()->json(['perms' => $perms]); */
-        $url_recortada = str_replace('/', '',$request->url);
+        $url_recortada = str_replace('/', '', $request->url);
         $user = User::find($user_id);
         $permisos = $user->obtener_permisos();
         $permitido = false;
         //return response()->json(['data'=> $permisos]);
         foreach ($permisos as $key => $value) {
-            if($value->name == $url_recortada){
+            if ($value->name == $url_recortada) {
                 $permitido = true;
             }
         }
         return response()->json(['data' => $permitido]);
     }
-    
 }

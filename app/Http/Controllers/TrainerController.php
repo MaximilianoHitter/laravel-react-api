@@ -15,16 +15,16 @@ use Illuminate\Support\Facades\Auth;
 class TrainerController extends Controller
 {
     private $estados = [
-        1=>'Activo',
-        2=>'Inactivo',
-        3=>'Cancelado'
+        1 => 'Activo',
+        2 => 'Inactivo',
+        3 => 'Cancelado'
     ];
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response()->json(['trainers'=>Trainer::all()]);
+        return response()->json(['trainers' => Trainer::all()]);
     }
 
     /**
@@ -85,10 +85,12 @@ class TrainerController extends Controller
      */
     public function get_students_requests()
     {
-        //$id_user = Auth::id();
         $user_id = Auth::id();
-        $trainer = Trainer::find('id_user', $user_id);
-        //$trainer = Trainer::with('students')->find($id_trainer);
+        try {
+            $trainer = Trainer::where('id_user', $user_id)->first();
+        } catch (\Throwable $th) {
+            return [];
+        }
         $peticiones = $trainer->students;
         $salida = [];
         foreach ($peticiones as $key => $value) {
@@ -100,7 +102,8 @@ class TrainerController extends Controller
         return $salida;
     }
 
-    public function change_status(Request $request){
+    public function change_status(Request $request)
+    {
         $id_tupla = $request->id_tupla;
         $estado = $request->estado;
         $nuevo_estado = $this->estados[$estado];
@@ -108,10 +111,11 @@ class TrainerController extends Controller
         $tupla->status = $nuevo_estado;
         $tupla->date = Carbon::now()->format('Y-m-d');
         $tupla->save();
-        return response()->json(['data'=>'success'], 200);
+        return response()->json(['data' => 'success'], 200);
     }
 
-    public function get_certificates($id_trainer){
+    public function get_certificates($id_trainer)
+    {
         $certificates = Certificate::where('id_trainer', $id_trainer)->get();
         return new GeneralCollection($certificates);
     }

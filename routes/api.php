@@ -26,7 +26,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group([], function(){
+Route::group([], function () {
     Route::post('/permissions', [PermissionsController::class, 'index']);
 });
 
@@ -41,14 +41,14 @@ Route::group([], function(){
 Route::get('/status', [StatusController::class, 'status']);
 Route::get('/roles', [StatusController::class, 'roles_publicos']);
 
-Route::group([], function(){
+Route::group([], function () {
     Route::post('/trainerroutinest', [TrainerRoutineController::class, 'store']);
     Route::post('/student_routines', [TrainerRoutineController::class, 'rutinas_de_alumno']);
     Route::post('/trainerroutinedl', [TrainerRoutineController::class, 'destroy']);
     Route::post('/trainer_routines', [TrainerRoutineController::class, 'rutinas_de_trainer']);
 });
 
-Route::group([], function(){
+Route::group([], function () {
     Route::get('/trainers', [TrainerController::class, 'index']);
     Route::get('/trainers/{id}', [TrainerController::class, 'show']);
     Route::get('/trainer_students', [TrainerController::class, 'get_students_requests']);
@@ -56,7 +56,7 @@ Route::group([], function(){
     Route::get('/certificates/{id_trainer}', [TrainerController::class, 'get_certificates']);
 });
 
-Route::group([], function(){
+Route::group([], function () {
     Route::post('/student_goals', [StudentController::class, 'get_goals']);
     Route::get('/get_student_goals', [StudentController::class, 'get_student_goals']);
     Route::get('/student_routines', [StudentController::class, 'get_routines']);
@@ -68,7 +68,3 @@ Route::group([], function(){
 
 //Rutas de prueba
 Route::get('/all', [TrainerRoutineController::class, 'index']);
-
-
-
-

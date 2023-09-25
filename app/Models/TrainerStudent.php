@@ -22,8 +22,4 @@ class TrainerStudent extends Model
     protected $hidden = [
         'created_at'
     ];
-
-    /* public function student():HasMany{
-        return $this->hasMany(Student::class, 'trainer_students');
-    } */
 }

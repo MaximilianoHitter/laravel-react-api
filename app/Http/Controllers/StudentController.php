@@ -81,17 +81,19 @@ class StudentController extends Controller
         return new StudentGoalCollection($goals);
     }
 
-    public function get_student_goals(){
+    public function get_student_goals()
+    {
         //obtener por Auth despues
         $user_id = Auth::id();
-        $student = Student::find('id_user', $user_id)->get();
+        $student = Student::where('id_user', $user_id)->first();
         $goals = StudentGoal::where('id_student', $student->id)->get();
         return new StudentGoalCollection($goals);
     }
 
-    public function get_routines(Request $request){
+    public function get_routines(Request $request)
+    {
         $user_id = Auth::id();
-        $student = Student::find('id_user', $user_id)->get();
+        $student = Student::where('id_user', $user_id)->get();
         $rutinas = TrainerRoutine::with('events')
             ->where('id_student', $student->id)
             ->get();
@@ -102,7 +104,7 @@ class StudentController extends Controller
     {
         $trainer = Trainer::find($request->trainer_id);
         $user_id = Auth::id();
-        $student = Student::find('id_user', $user_id)->get();
+        $student = Student::where('id_user', $user_id)->get();
         $trainer_student = new TrainerStudent();
         $trainer_student->student_id = $student->id;
         $trainer_student->trainer_id = $trainer->id;
@@ -116,30 +118,26 @@ class StudentController extends Controller
     {
         $trainer = Trainer::find($request->trainer_id);
         $user_id = Auth::id();
-        $student = Student::find('id_user', $user_id)->get();
-        $trainer_student = TrainerStudent::where('student_id', $student->id)
-            ->where('trainer_id', $trainer->id)
-            ->first();
-        if ($trainer_student) {
-            return response()->json(['data' => true]);
-        } else {
-            return response()->json(['data' => false]);
-        }
+        $student = Student::where('id_user', $user_id)->first();
+        $is_connected = $student->trainers->contains($trainer);
+        return response()->json(['data' => $is_connected]);
     }
 
-    public function get_trainers(){
-        $id_student=1;
+    public function get_trainers()
+    {
+        $id_student = 1;
         $student = Student::with('trainers')->find($id_student);
         $trainers = $student->trainers;
         return new GeneralCollection($trainers);
     }
 
-    public function set_feedback(Request $request){
+    public function set_feedback(Request $request)
+    {
         $event_id = $request->id_evento;
         $feedback = $request->feedback;
         $evento = RoutineEvents::find($event_id);
         $evento->student_feedback = $feedback;
         $evento->save();
-        return response()->json(['data'=>'success'], 200);
+        return response()->json(['data' => 'success'], 200);
     }
 }
