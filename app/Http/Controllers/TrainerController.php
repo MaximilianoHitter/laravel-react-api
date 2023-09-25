@@ -88,10 +88,10 @@ class TrainerController extends Controller
         $user_id = Auth::id();
         try {
             $trainer = Trainer::where('id_user', $user_id)->first();
+            $peticiones = $trainer->students;
         } catch (\Throwable $th) {
             return [];
         }
-        $peticiones = $trainer->students;
         $salida = [];
         foreach ($peticiones as $key => $value) {
             $value->status = $value->pivot->status;

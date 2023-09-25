@@ -93,7 +93,7 @@ class StudentController extends Controller
     public function get_routines(Request $request)
     {
         $user_id = Auth::id();
-        $student = Student::where('id_user', $user_id)->get();
+        $student = Student::where('id_user', $user_id)->first();
         $rutinas = TrainerRoutine::with('events')
             ->where('id_student', $student->id)
             ->get();
@@ -104,7 +104,7 @@ class StudentController extends Controller
     {
         $trainer = Trainer::find($request->trainer_id);
         $user_id = Auth::id();
-        $student = Student::where('id_user', $user_id)->get();
+        $student = Student::where('id_user', $user_id)->first();
         $trainer_student = new TrainerStudent();
         $trainer_student->student_id = $student->id;
         $trainer_student->trainer_id = $trainer->id;
