@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Specialist;
+use App\Models\Student;
+use App\Models\Trainer;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -23,7 +26,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'rol_id' => ['required']
         ]);
@@ -41,10 +44,60 @@ class RegisteredUserController extends Controller
 
         $rol = Role::find($request->rol_id);
         $user->assignRole($rol);
+        
 
         event(new Registered($user));
 
         Auth::login($user);
+
+        switch ($request->rol_id) {
+            case '2':
+                # Trainer
+                Trainer::create([
+                    'id_user' => Auth::id(),
+                    'name' => $request->name,
+                    'last_name' => '',
+                    'profile_picture_url' => '',
+                    'day_of_birth' => '2000-01-01',
+                    'weight' => 40,
+                    'height' => 150,
+                    'description' => ''
+                ]);
+                break;
+
+            case '4':
+                # Especialista
+                Specialist::create([
+                    'id_user' => Auth::id(),
+                    'name' => $request->name,
+                    'last_name' => '',
+                    'profile_picture_url' => '',
+                    'day_of_birth' => '2000-01-01',
+                    'weight' => 40,
+                    'height' => 150,
+                    'description' => ''
+                ]);
+                break;
+
+            case '5':
+                # Alumno
+                Student::create([
+                    'id_user' => Auth::id(),
+                    'name' => $request->name,
+                    'last_name' => '',
+                    'profile_picture_url' => '',
+                    'day_of_birth' => '2000-01-01',
+                    'weight' => 40,
+                    'height' => 150,
+                    'description' => ''
+                ]);
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
 
         return response()->noContent();
     }
