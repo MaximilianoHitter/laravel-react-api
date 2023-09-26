@@ -125,9 +125,10 @@ class StudentController extends Controller
 
     public function get_trainers()
     {
-        $id_student = 1;
-        $student = Student::with('trainers')->find($id_student);
-        $trainers = $student->trainers;
+        $user_id = Auth::id();
+        $student = Student::where('id_user', $user_id)->first();
+        $student_a = Student::with('trainers')->find($student->id);
+        $trainers = $student_a->trainers;
         return new GeneralCollection($trainers);
     }
 
