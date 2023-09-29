@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\PermissionServiceProvider;
 
+use Illuminate\Support\Facades\Mail;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -68,3 +71,15 @@ Route::group([], function () {
 
 //Rutas de prueba
 Route::get('/all', [TrainerRoutineController::class, 'index']);
+
+Route::get('/send-test-email', function (Request $request) {
+    $to = 'test@example.com';
+    $subject = 'Test Email';
+    $message = 'This is a test email from Laravel!';
+
+    Mail::raw($message, function ($mail) use ($to, $subject) {
+        $mail->to($to)->subject($subject);
+    });
+
+    return 'Test email sent successfully!';
+});
