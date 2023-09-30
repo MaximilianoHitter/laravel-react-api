@@ -44,7 +44,7 @@ class TrainerRoutineController extends Controller
         $routine->id_routine_status = $status->id;
         $routine->amount = $request->amount;
         $routine->id_payment = null;
-        $routine->description = implode('|', $request->descriptions);
+        $routine->description = implode(' | ', $request->descriptions);
         $routine->color = $request->color;
         
 
