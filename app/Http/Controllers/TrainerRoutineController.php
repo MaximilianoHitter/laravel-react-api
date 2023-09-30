@@ -44,7 +44,7 @@ class TrainerRoutineController extends Controller
         $routine->id_routine_status = $status->id;
         $routine->amount = $request->amount;
         $routine->id_payment = null;
-        $routine->description = $request->descriptions;
+        $routine->description = implode('|', $request->descriptions);
         $routine->color = $request->color;
         
 
@@ -78,7 +78,6 @@ class TrainerRoutineController extends Controller
         }
        
         $descriptions = $request->descriptions;
-        $descriptions = explode('|', $descriptions);
         for ($i=0; $i < $cantidad_de_dias; $i++) { 
             $date_event = $nueva_fecha_inicial;
             $routine_event = new RoutineEvents();
@@ -129,7 +128,16 @@ class TrainerRoutineController extends Controller
         $user_id = Auth::id();
         $trainer = Trainer::where('id_user', $user_id)->first();
         $rutinas = TrainerRoutine::with('events')->where('id_trainer', $trainer->id)->where('id_student', $request->student_id)->get();
-        return New StudentRoutineCollection($rutinas);
+        $rutinas_a_devolver = [];
+        foreach ($rutinas as $key => $rutina) {
+            $descripcion = [];
+            foreach ($rutina->events as $key => $evento) {
+                array_push($descripcion, $evento->description);
+            }
+            $rutina->description = $descripcion;
+            $rutinas_a_devolver[] = $rutina;
+        }
+        return New StudentRoutineCollection($rutinas_a_devolver);
     }
 
     public function rutinas_de_trainer(Request $request){
