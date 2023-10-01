@@ -17,12 +17,15 @@ class PermissionsController extends Controller
         }
         /* $perms = $user->obtener_permisos();
         return response()->json(['perms' => $perms]); */
+        if($request->url = '/'){
+            return response()->json(['data'=> true]);
+        }
         $url_recortada = str_replace('/', '', $request->url);
         $user = User::find($user_id);
         $permisos = $user->obtener_permisos();
         $permitido = false;
         //return response()->json(['data'=> $permisos]);
-        foreach ($permisos as $key => $value) {
+        foreach ($permisos->items as $key => $value) {
             if ($value->name == $url_recortada) {
                 $permitido = true;
             }
