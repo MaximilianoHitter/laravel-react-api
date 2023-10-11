@@ -81,7 +81,11 @@ class TrainerController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @lrd:start 
+     * Este metodo hace cosas locas 
+     * 
+     * y aca metemo otra pelotude 
+     * @lrd:end
      */
     public function get_students_requests()
     {
