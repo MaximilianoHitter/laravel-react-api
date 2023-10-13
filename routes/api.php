@@ -67,6 +67,7 @@ Route::group([], function () {
     Route::post('/is_connected_trainer', [StudentController::class, 'is_connected_trainer']);
     Route::get('/student_trainers', [StudentController::class, 'get_trainers']);
     Route::post('/set_feedback', [StudentController::class, 'set_feedback']);
+    Route::get('/get_routines_unpayment', [StudentController::class, 'get_unpayed_routines']);
 });
 
 //Rutas de prueba

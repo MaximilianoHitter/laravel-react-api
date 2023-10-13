@@ -141,4 +141,12 @@ class StudentController extends Controller
         $evento->save();
         return response()->json(['data' => 'success'], 200);
     }
+
+    public function get_unpayed_routines(){
+        $user_id = Auth::id();
+        //$user_id = 2;
+        $student = Student::where('id_user', $user_id)->first();
+        $rutinas = TrainerRoutine::where('id_student', $student->id)->where('id_payment', null)->get();
+        return response()->json(['data'=>$rutinas]);
+    }
 }
