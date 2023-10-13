@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TrainerRoutineShowRequest;
 use App\Http\Requests\TrainerRoutineStoreRequest;
 use App\Models\RoutineEvents;
 use App\Models\Status;
@@ -99,9 +100,10 @@ class TrainerRoutineController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(TrainerRoutine $trainerRoutine)
+    public function show(TrainerRoutineShowRequest $request)
     {
-        //
+        $routine = TrainerRoutine::where('id', $request->trainerroutine_id)->with('trainer')->first();
+        return response()->json(['data'=>$routine]);
     }
 
     /**
