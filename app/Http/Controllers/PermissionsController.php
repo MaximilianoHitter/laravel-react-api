@@ -17,8 +17,8 @@ class PermissionsController extends Controller
         }
         /* $perms = $user->obtener_permisos();
         return response()->json(['perms' => $perms]); */
-        if($request->url = '/'){
-            return response()->json(['data'=> true]);
+        if ($request->url = '/') {
+            return response()->json(['data' => true]);
         }
         $url_recortada = str_replace('/', '', $request->url);
         $user = User::find($user_id);
@@ -31,5 +31,12 @@ class PermissionsController extends Controller
             }
         }
         return response()->json(['data' => $permitido]);
+    }
+
+    public function user_rol() {
+        $user_id = Auth::id();
+        $user = User::find($user_id);
+        $rol = $user->getRoleNames();
+        return response()->json(['data' => $rol]);
     }
 }

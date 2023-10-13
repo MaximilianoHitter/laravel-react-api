@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -50,12 +49,18 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public function socials(): HasMany {
+    public function socials(): HasMany
+    {
         return $this->hasMany(Social::class);
     }
 
     public function obtener_permisos(): Collection
     {
         return $this->getAllPermissions();
+    }
+
+    public function obtener_roles(): Collection
+    {
+        return $this->getRoleNames();
     }
 }
