@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\StudentController;
@@ -44,13 +45,16 @@ Route::group([], function(){
 Route::get('/status', [StatusController::class, 'status']);
 Route::get('/roles', [StatusController::class, 'roles_publicos']);
 
+//Rutas de rutinas
 Route::group([], function () {
     Route::post('/trainerroutinest', [TrainerRoutineController::class, 'store']);
     Route::post('/student_routines', [TrainerRoutineController::class, 'rutinas_de_alumno']);
     Route::post('/trainerroutinedl', [TrainerRoutineController::class, 'destroy']);
     Route::post('/trainer_routines', [TrainerRoutineController::class, 'rutinas_de_trainer']);
+    Route::post('/get_routine', [TrainerRoutineController::class, 'show']);
 });
 
+//Rutas de Trainer
 Route::group([], function () {
     Route::get('/trainers', [TrainerController::class, 'index']);
     Route::get('/trainers/{id}', [TrainerController::class, 'show']);
@@ -59,6 +63,7 @@ Route::group([], function () {
     Route::get('/certificates/{id_trainer}', [TrainerController::class, 'get_certificates']);
 });
 
+//Rutas de Alumno
 Route::group([], function () {
     Route::post('/student_goals', [StudentController::class, 'get_goals']);
     Route::get('/get_student_goals', [StudentController::class, 'get_student_goals']);
@@ -68,6 +73,11 @@ Route::group([], function () {
     Route::get('/student_trainers', [StudentController::class, 'get_trainers']);
     Route::post('/set_feedback', [StudentController::class, 'set_feedback']);
     Route::get('/get_routines_unpayment', [StudentController::class, 'get_unpayed_routines']);
+});
+
+//Rutas de Payment
+Route::group([], function(){
+    Route::post('/payment_store', [PaymentController::class, 'store']);
 });
 
 //Rutas de prueba

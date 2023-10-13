@@ -146,7 +146,7 @@ class StudentController extends Controller
         $user_id = Auth::id();
         //$user_id = 2;
         $student = Student::where('id_user', $user_id)->first();
-        $rutinas = TrainerRoutine::where('id_student', $student->id)->where('id_payment', null)->get();
+        $rutinas = TrainerRoutine::where('id_student', $student->id)->where('id_payment', null)->with('trainer')->get();
         return response()->json(['data'=>$rutinas]);
     }
 }

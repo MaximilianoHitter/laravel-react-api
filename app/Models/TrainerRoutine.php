@@ -38,7 +38,7 @@ class TrainerRoutine extends Model
     }
 
     public function trainer():BelongsTo{
-        return $this->belongsTo(Trainer::class);
+        return $this->belongsTo(Trainer::class, 'id_trainer');
     }
 
     public function goal():BelongsTo{
