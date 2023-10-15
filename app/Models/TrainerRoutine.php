@@ -30,11 +30,11 @@ class TrainerRoutine extends Model
     }
 
     public function payment():HasOne{
-        return $this->hasOne(Payment::class);
+        return $this->hasOne(Payment::class, 'id', 'id_payment');
     }
 
     public function student():BelongsTo{
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'id_student');
     }
 
     public function trainer():BelongsTo{
