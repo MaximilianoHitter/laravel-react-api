@@ -21,4 +21,5 @@ class RoutineEvents extends Model
     public function routine():BelongsTo{
         return $this->belongsTo(TrainerRoutine::class, 'trainer_routine_id');
     }
+
 }

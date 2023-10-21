@@ -148,7 +148,7 @@ class TrainerRoutineController extends Controller
         $student = Student::where('id_user', $user_id)->first();
         $trainer_id = $request->trainer_id;
 
-        $eventos = RoutineEvents::with('routine')->whereHas('routine', function($query) use ($trainer_id, $student){
+        $eventos = RoutineEvents::with('routine', 'routine.payment')->whereHas('routine', function($query) use ($trainer_id, $student){
             $query->where('id_trainer', $trainer_id)->where('id_student', $student->id);
         })->get();
         return new StudentRoutineCollection($eventos);

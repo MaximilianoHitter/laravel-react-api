@@ -119,8 +119,9 @@ class PaymentController extends Controller
     public function change_status(Request $request){
         $id_payment = $request->payment_id;
         $payment_status = $request->payment_status;
+        $estados = [0=>'Iniciado', 1=>"Aceptado", 2=>"Cancelado"];
         $payment = Payment::find($id_payment)->first();
-        $payment->status = $payment_status;
+        $payment->status = $estados[$payment_status];
         $payment->save();
         return response()->json(['data'=>'success'], 200);
     }
