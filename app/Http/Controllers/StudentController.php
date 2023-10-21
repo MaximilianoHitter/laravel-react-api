@@ -147,7 +147,23 @@ class StudentController extends Controller
         $user_id = Auth::id();
         //$user_id = 2;
         $student = Student::where('id_user', $user_id)->first();
-        $rutinas = TrainerRoutine::where('id_student', $student->id)->where('id_payment', null)->with('trainer')->get();
-        return response()->json(['data'=>$rutinas]);
+        $rutinas = TrainerRoutine::where('id_student', $student->id)
+            ->where('id_payment', null)
+            ->with('trainer')
+            ->get();
+        return response()->json(['data' => $rutinas]);
+    }
+
+    public function set_profile_data(Request $request)
+    {
+        $user_id = Auth::id();
+        $student = Student::where('id_user', $user_id)->first();
+        $student_goal = StudentGoal::where('id_student', $student->id)->first();
+        $student->weight = $request->weight;
+        $student->height = $request->height;
+        $student_goal->name = $request->goal;
+        $student->save();
+        $student_goal->save();
+        return response()->json(['data' => 'success'], 200);
     }
 }

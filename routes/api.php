@@ -76,7 +76,7 @@ Route::group([], function () {
 });
 
 //Rutas de Payment
-Route::group([], function(){
+Route::group([], function () {
     Route::post('/payment_store', [PaymentController::class, 'store']);
     Route::get('/payments', [PaymentController::class, 'index']);
     Route::post('/set_payment_status', [PaymentController::class, 'change_status']);
@@ -98,3 +98,5 @@ Route::get('/send-test-email', function (Request $request) {
 });
 
 Route::get('/get-role', [PermissionsController::class, 'user_rol']);
+
+Route::post('/set_profile_data', [StudentController::class, 'set_profile_data']);
