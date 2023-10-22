@@ -166,4 +166,12 @@ class StudentController extends Controller
         $student_goal->save();
         return response()->json(['data' => 'success'], 200);
     }
+
+    public function get_student_data($id_user)
+    {
+        $student = Student::where('id_user', $id_user)->first();
+        $student_goal = StudentGoal::where('id_student', $student->id)->first();
+        $student->goal = $student_goal->name;
+        return response()->json(['data' => $student]);
+    }
 }

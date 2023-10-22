@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\SpecialistController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\TrainerRoutineController;
+use App\Http\Controllers\UserController;
 use App\Models\TrainerRoutine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -100,3 +102,11 @@ Route::get('/send-test-email', function (Request $request) {
 Route::get('/get-role', [PermissionsController::class, 'user_rol']);
 
 Route::post('/set_profile_data', [StudentController::class, 'set_profile_data']);
+Route::post('/set_perfil_data', [UserController::class, 'set_perfil_data']);
+
+// Rutas que dependen del rol del usuario
+Route::group([], function() {
+    Route::get('/get_student_data/{id_user}', [StudentController::class, 'get_student_data']);
+    Route::get('/get_trainer_data/{id_user}', [TrainerController::class, 'get_trainer_data']);
+    Route::get('/get_specialist_data/{id_user}', [SpecialistController::class, 'get_specialist_data']);
+});
