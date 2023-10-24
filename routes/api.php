@@ -75,6 +75,7 @@ Route::group([], function () {
     Route::get('/student_trainers', [StudentController::class, 'get_trainers']);
     Route::post('/set_feedback', [StudentController::class, 'set_feedback']);
     Route::get('/get_routines_unpayment', [StudentController::class, 'get_unpayed_routines']);
+    Route::get('/goal/{goal_id}', [StudentController::class, 'get_goal']);
 });
 
 //Rutas de Payment

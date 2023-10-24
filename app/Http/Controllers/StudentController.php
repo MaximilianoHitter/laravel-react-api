@@ -73,6 +73,11 @@ class StudentController extends Controller
         //
     }
 
+    public function get_goal($goal_id){
+        $rutinas = TrainerRoutine::where('id_student_goal', $goal_id)->with('events')->get();
+        return new StudentGoalCollection($rutinas);
+    }
+
 
     public function get_goals(Request $request)
     {
