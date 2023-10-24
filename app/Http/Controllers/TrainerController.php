@@ -123,4 +123,14 @@ class TrainerController extends Controller
         $certificates = Certificate::where('id_trainer', $id_trainer)->get();
         return new GeneralCollection($certificates);
     }
+
+    public function get_trainer_data($id_trainer)
+    {
+        $trainer = Trainer::where('id_user', $id_trainer)->first();
+        $cantidad_alumnos = TrainerStudent::where('trainer_id', $trainer->id)->where('status', 'Activo')->count();
+        $trainer->qty_students = $cantidad_alumnos;
+        $cantidad_certificados = Certificate::where('id_trainer', $trainer->id)->count();
+        $trainer->qty_certificates = $cantidad_certificados;
+        return response()->json(['data' => $trainer]);
+    }
 }

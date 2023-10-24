@@ -105,7 +105,7 @@ Route::post('/set_profile_data', [StudentController::class, 'set_profile_data'])
 Route::post('/set_perfil_data', [UserController::class, 'set_perfil_data']);
 
 // Rutas que dependen del rol del usuario
-Route::group([], function() {
+Route::group([], function () {
     Route::get('/get_student_data/{id_user}', [StudentController::class, 'get_student_data']);
     Route::get('/get_trainer_data/{id_user}', [TrainerController::class, 'get_trainer_data']);
     Route::get('/get_specialist_data/{id_user}', [SpecialistController::class, 'get_specialist_data']);
