@@ -28,6 +28,10 @@ class RolSeeder extends Seeder
         Permission::create(['name'=>'student_routines'])->assignRole([$role5]);
         Permission::create(['name'=>'trainer_request'])->assignRole([$role2]);
         Permission::create(['name'=>'payment'])->assignRole([$role5]);
+        Permission::create(['name'=>'payments'])->assignRole([$role5, $role2]);
+        Permission::create(['name'=>'metricas'])->assignRole([$role5]);
+        Permission::create(['name'=>'exercises'])->assignRole([$role5,$role2]); 
+
 
         /* $permission = Permission::create(['name' => 'PermisoAdmin'])->assignRole([$role1]);
         $permission = Permission::create(['name' => 'PermisoTrainer'])->assignRole([$role2]);

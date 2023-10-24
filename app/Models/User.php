@@ -54,7 +54,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Social::class);
     }
 
-    public function obtener_permisos(): Collection
+    public function obtener_permisos()
     {
         return $this->getAllPermissions();
     }
