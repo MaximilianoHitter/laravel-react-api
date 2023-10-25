@@ -129,7 +129,7 @@ class TrainerRoutineController extends Controller
         //hay que validar que existe el alumno del id
         $user_id = Auth::id();
         $trainer = Trainer::where('id_user', $user_id)->first();
-        $rutinas = TrainerRoutine::with('events')->where('id_trainer', $trainer->id)->where('id_student', $request->student_id)->get();
+        $rutinas = TrainerRoutine::with('events', 'goal', 'status')->where('id_trainer', $trainer->id)->where('id_student', $request->student_id)->get();
         $rutinas_a_devolver = [];
         foreach ($rutinas as $key => $rutina) {
             $descripcion = [];

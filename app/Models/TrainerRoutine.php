@@ -42,6 +42,10 @@ class TrainerRoutine extends Model
     }
 
     public function goal():BelongsTo{
-        return $this->belongsTo(StudentGoal::class);
+        return $this->belongsTo(StudentGoal::class, 'id_student_goal');
+    }
+
+    public function status():BelongsTo{
+        return $this->belongsTo(Status::class, 'id_routine_status');
     }
 }
