@@ -65,7 +65,8 @@ class SpecialistController extends Controller
 
     public function get_specialist_data($id_specialist)
     {
-        $specialist = Specialist::where('id_user', $id_specialist)->first();
+        $specialist = Specialist::where('id_user', $id_specialist)
+            ->first();
         return response()->json(['data' => $specialist]);
     }
 }

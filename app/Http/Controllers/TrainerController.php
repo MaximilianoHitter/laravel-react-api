@@ -49,9 +49,12 @@ class TrainerController extends Controller
     public function show($id_trainer)
     {
         $trainer = Trainer::find($id_trainer);
-        $cantidad_alumnos = TrainerStudent::where('trainer_id', $trainer->id)->where('status', 'Activo')->count();
+        $cantidad_alumnos = TrainerStudent::where('trainer_id', $trainer->id)
+            ->where('status', 'Activo')
+            ->count();
         $trainer->qty_students = $cantidad_alumnos;
-        $cantidad_certificados = Certificate::where('id_trainer', $trainer->id)->count();
+        $cantidad_certificados = Certificate::where('id_trainer', $trainer->id)
+            ->count();
         $trainer->qty_certificates = $cantidad_certificados;
         return response()->json($trainer);
     }
@@ -91,7 +94,8 @@ class TrainerController extends Controller
     {
         $user_id = Auth::id();
         try {
-            $trainer = Trainer::where('id_user', $user_id)->first();
+            $trainer = Trainer::where('id_user', $user_id)
+                ->first();
             $peticiones = $trainer->students;
         } catch (\Throwable $th) {
             return [];
@@ -120,16 +124,21 @@ class TrainerController extends Controller
 
     public function get_certificates($id_trainer)
     {
-        $certificates = Certificate::where('id_trainer', $id_trainer)->get();
+        $certificates = Certificate::where('id_trainer', $id_trainer)
+            ->get();
         return new GeneralCollection($certificates);
     }
 
     public function get_trainer_data($id_trainer)
     {
-        $trainer = Trainer::where('id_user', $id_trainer)->first();
-        $cantidad_alumnos = TrainerStudent::where('trainer_id', $trainer->id)->where('status', 'Activo')->count();
+        $trainer = Trainer::where('id_user', $id_trainer)
+            ->first();
+        $cantidad_alumnos = TrainerStudent::where('trainer_id', $trainer->id)
+            ->where('status', 'Activo')
+            ->count();
         $trainer->qty_students = $cantidad_alumnos;
-        $cantidad_certificados = Certificate::where('id_trainer', $trainer->id)->count();
+        $cantidad_certificados = Certificate::where('id_trainer', $trainer->id)
+            ->count();
         $trainer->qty_certificates = $cantidad_certificados;
         return response()->json(['data' => $trainer]);
     }

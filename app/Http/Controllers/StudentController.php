@@ -73,8 +73,11 @@ class StudentController extends Controller
         //
     }
 
-    public function get_goal($goal_id){
-        $rutinas = TrainerRoutine::where('id_student_goal', $goal_id)->with('events')->get();
+    public function get_goal($goal_id)
+    {
+        $rutinas = TrainerRoutine::where('id_student_goal', $goal_id)
+            ->with('events')
+            ->get();
         return new StudentGoalCollection($rutinas);
     }
 
@@ -82,7 +85,8 @@ class StudentController extends Controller
     public function get_goals(Request $request)
     {
         $student_id = $request->student_id;
-        $goals = StudentGoal::where('id_student', $student_id)->get();
+        $goals = StudentGoal::where('id_student', $student_id)
+            ->get();
         return new StudentGoalCollection($goals);
     }
 
@@ -90,15 +94,18 @@ class StudentController extends Controller
     {
         //obtener por Auth despues
         $user_id = Auth::id();
-        $student = Student::where('id_user', $user_id)->first();
-        $goals = StudentGoal::where('id_student', $student->id)->get();
+        $student = Student::where('id_user', $user_id)
+            ->first();
+        $goals = StudentGoal::where('id_student', $student->id)
+            ->get();
         return new StudentGoalCollection($goals);
     }
 
     public function get_routines(Request $request)
     {
         $user_id = Auth::id();
-        $student = Student::where('id_user', $user_id)->first();
+        $student = Student::where('id_user', $user_id)
+            ->first();
         $rutinas = TrainerRoutine::with('events')
             ->where('id_student', $student->id)
             ->get();
@@ -109,7 +116,8 @@ class StudentController extends Controller
     {
         $trainer = Trainer::find($request->trainer_id);
         $user_id = Auth::id();
-        $student = Student::where('id_user', $user_id)->first();
+        $student = Student::where('id_user', $user_id)
+            ->first();
         $trainer_student = new TrainerStudent();
         $trainer_student->student_id = $student->id;
         $trainer_student->trainer_id = $trainer->id;
@@ -123,7 +131,8 @@ class StudentController extends Controller
     {
         $trainer = Trainer::find($request->trainer_id);
         $user_id = Auth::id();
-        $student = Student::where('id_user', $user_id)->first();
+        $student = Student::where('id_user', $user_id)
+            ->first();
         $is_connected = $student->trainers->contains($trainer);
         return response()->json(['data' => $is_connected]);
     }
@@ -131,8 +140,10 @@ class StudentController extends Controller
     public function get_trainers()
     {
         $user_id = Auth::id();
-        $student = Student::where('id_user', $user_id)->first();
-        $student_a = Student::with('trainers')->find($student->id);
+        $student = Student::where('id_user', $user_id)
+            ->first();
+        $student_a = Student::with('trainers')
+            ->find($student->id);
         $trainers = $student_a->trainers;
         return new GeneralCollection($trainers);
     }
@@ -151,7 +162,8 @@ class StudentController extends Controller
     {
         $user_id = Auth::id();
         //$user_id = 2;
-        $student = Student::where('id_user', $user_id)->first();
+        $student = Student::where('id_user', $user_id)
+            ->first();
         $rutinas = TrainerRoutine::where('id_student', $student->id)
             ->where('id_payment', null)
             ->with('trainer')
@@ -162,8 +174,10 @@ class StudentController extends Controller
     public function set_profile_data(Request $request)
     {
         $user_id = Auth::id();
-        $student = Student::where('id_user', $user_id)->first();
-        $student_goal = StudentGoal::where('id_student', $student->id)->first();
+        $student = Student::where('id_user', $user_id)
+            ->first();
+        $student_goal = StudentGoal::where('id_student', $student->id)
+            ->first();
         $student->weight = $request->weight;
         $student->height = $request->height;
         $student_goal->name = $request->goal;
@@ -174,8 +188,10 @@ class StudentController extends Controller
 
     public function get_student_data($id_user)
     {
-        $student = Student::where('id_user', $id_user)->first();
-        $student_goal = StudentGoal::where('id_student', $student->id)->first();
+        $student = Student::where('id_user', $id_user)
+            ->first();
+        $student_goal = StudentGoal::where('id_student', $student->id)
+            ->first();
         $student->goal = $student_goal->name;
         return response()->json(['data' => $student]);
     }
