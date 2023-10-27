@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\RoutineEventsController;
 use App\Http\Controllers\SpecialistController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\StudentController;
@@ -55,6 +56,11 @@ Route::group([], function () {
     Route::post('/trainerroutinedl', [TrainerRoutineController::class, 'destroy']);
     Route::post('/trainer_routines', [TrainerRoutineController::class, 'rutinas_de_trainer']);
     Route::post('/get_routine', [TrainerRoutineController::class, 'show']);
+});
+
+//Rutas de routine_event 
+Route::group([], function(){
+    Route::post('/routine_event_store', [RoutineEventsController::class, 'store']);
 });
 
 //Rutas de Trainer

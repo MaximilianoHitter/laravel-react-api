@@ -35,7 +35,12 @@ class RoutineEventsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $routine_event = new RoutineEvents();
+        $routine_event->date = $request->event_date;
+        $routine_event->trainer_routine_id = $request->trainer_routine_id;
+        $routine_event->description = $request->description;
+        $routine_event->save();
+        return response()->json(['success']);
     }
 
     /**
