@@ -50,6 +50,7 @@ Route::get('/roles', [StatusController::class, 'roles_publicos']);
 //Rutas de rutinas
 Route::group([], function () {
     Route::post('/trainerroutinest', [TrainerRoutineController::class, 'store']);
+    Route::post('/trainer_routine_store', [TrainerRoutineController::class, 'new_store']);
     Route::post('/student_routines', [TrainerRoutineController::class, 'rutinas_de_alumno']);
     Route::post('/trainerroutinedl', [TrainerRoutineController::class, 'destroy']);
     Route::post('/trainer_routines', [TrainerRoutineController::class, 'rutinas_de_trainer']);

@@ -3,16 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\RoutineEvents;
+use App\Models\Trainer;
+use App\Models\TrainerRoutine;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoutineEventsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user_id = Auth::id();//Auth::user()->id;
+        $trainer = Trainer::where('id_user', $user_id)->first();
+        $student_id = $request->student_id;
+        $eventos = TrainerRoutine::where('id_trainer', $trainer->id)->where('id_student', $student_id)->with('events')->get();
+        return response()->json([$eventos]);
     }
 
     /**

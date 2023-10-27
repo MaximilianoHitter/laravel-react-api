@@ -24,6 +24,27 @@ class TrainerRoutineController extends Controller
         return TrainerRoutine::with('events')->get();
     }
 
+    public function new_store(TrainerRoutineStoreRequest $request){
+        $user_id = Auth::id();//Auth::user()->id;
+        $trainer = Trainer::where('id_user', $user_id)->first();
+        //return $trainer;
+        $routine = new TrainerRoutine();
+        $routine->id_student = $request->id_student;
+        $routine->id_trainer = $trainer->id;
+        $routine->id_student_goal = $request->id_student_goal;
+        $routine->name = $request->name;
+        $routine->initial_date = $request->initial_date;
+        $routine->final_date = $request->final_date;
+        $status = Status::find(1);
+        $routine->id_routine_status = $status->id;
+        $routine->amount = $request->amount;
+        $routine->id_payment = null;
+        $routine->description = $request->descriptions;
+        $routine->color = $request->color;
+        $routine->save();
+        return response()->json(['success'], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
