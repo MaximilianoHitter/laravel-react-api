@@ -61,6 +61,7 @@ Route::group([], function () {
 //Rutas de routine_event 
 Route::group([], function(){
     Route::post('/routine_event_store', [RoutineEventsController::class, 'store']);
+    Route::post('/borrar_evento', [RoutineEventsController::class, 'destroy']);
 });
 
 //Rutas de Trainer
