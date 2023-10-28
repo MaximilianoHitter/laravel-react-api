@@ -174,4 +174,37 @@ class TrainerRoutineController extends Controller
         })->get();
         return new StudentRoutineCollection($eventos);
     }
+
+    public function estados(){
+        $estados = Status::all();
+        return new StudentRoutineCollection($estados);
+    }
+
+    public function cambiar_estado(Request $request){
+        $id = $request->estado_id;
+        $rutina_id = $request->rutina_id;
+        $rutina = TrainerRoutine::find($rutina_id);
+        if($rutina != null){
+            $rutina->id_routine_status = $id;
+            $rutina->save();
+            return response()->json(['success']);
+        }else{
+            return response()->json(['errors'=>['rutina_id'=>'No se encontro la rutina']]);
+        }
+    }
+
+    public function borrar_rutina(Request $request){
+        $id = $request->routine_id;
+        $rutina = TrainerRoutine::find($id);
+        if($rutina != null){
+            $eventos = RoutineEvents::where('trainer_routine_id', $id)->get();
+            foreach ($eventos as $key => $value) {
+                $value->delete();
+            }
+            $rutina->delete();
+            return response()->json(['success']);
+        }else{
+            return response()->json(['errors'=>['general'=>'Algo paso']], 422);
+        }
+    }
 }

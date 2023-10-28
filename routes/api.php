@@ -56,6 +56,8 @@ Route::group([], function () {
     Route::post('/trainerroutinedl', [TrainerRoutineController::class, 'destroy']);
     Route::post('/trainer_routines', [TrainerRoutineController::class, 'rutinas_de_trainer']);
     Route::post('/get_routine', [TrainerRoutineController::class, 'show']);
+    Route::post('/change_routine_status', [TrainerRoutineController::class, 'cambiar_estado']);
+    Route::post('/borrar_rutina', [TrainerRoutineController::class, 'borrar_rutina']);
 });
 
 //Rutas de routine_event 
@@ -63,6 +65,9 @@ Route::group([], function(){
     Route::post('/routine_event_store', [RoutineEventsController::class, 'store']);
     Route::post('/borrar_evento', [RoutineEventsController::class, 'destroy']);
 });
+
+//Rutas de estados
+Route::get('/get_estados', [TrainerRoutineController::class, 'estados']);
 
 //Rutas de Trainer
 Route::group([], function () {
