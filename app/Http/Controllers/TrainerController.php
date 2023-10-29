@@ -96,21 +96,12 @@ class TrainerController extends Controller
     public function get_students_requests()
     {
         $user_id = Auth::id();
-        try {
-            $trainer = Trainer::where('id_user', $user_id)
-                ->first();
-            $peticiones = $trainer->students;
-        } catch (\Throwable $th) {
-            return [];
+        $trainer = Trainer::where('id_user', $user_id)->first();
+        $request = TrainerStudent::where('trainer_id', $trainer->id)->with('student', 'status_student')->get();
+        foreach ($request as $key => $value) {
+            $request[$key]->name = $value->student->name.' '.$value->student->last_name;
         }
-        $salida = [];
-        foreach ($peticiones as $key => $value) {
-            $value->status = $value->pivot->status;
-            $value->date = $value->pivot->date;
-            $value->pivot_id = $value->pivot->id;
-            $salida[] = $value;
-        }
-        return $salida;
+        return new GeneralCollection($request);
     }
 
     public function change_status(Request $request)
@@ -144,5 +135,17 @@ class TrainerController extends Controller
             ->count();
         $trainer->qty_certificates = $cantidad_certificados;
         return response()->json(['data' => $trainer]);
+    }
+
+    public function change_student_status(Request $request){
+        $relacion_id = $request->relation_id;
+        $intermedia = TrainerStudent::find($relacion_id);
+        if($intermedia != null){
+            $intermedia->status_student_id = $request->estado_id;
+            $intermedia->save();
+            return response()->json(['success']);
+        }else{
+            return response()->json(['errors'=>['general'=>'algo paso']], 422);
+        }
     }
 }

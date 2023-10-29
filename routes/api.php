@@ -77,6 +77,7 @@ Route::group([], function () {
     Route::get('/trainer_students', [TrainerController::class, 'get_students_requests']);
     Route::post('/change_status', [TrainerController::class, 'change_status']);
     Route::get('/certificates/{id_trainer}', [TrainerController::class, 'get_certificates']);
+    Route::post('/change_student_trainer', [TrainerController::class, 'change_student_status']);
 });
 
 //Rutas de Alumno
