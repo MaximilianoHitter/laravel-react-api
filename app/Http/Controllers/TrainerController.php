@@ -53,8 +53,11 @@ class TrainerController extends Controller
             ->where('status', 'Activo')
             ->count();
         $trainer->qty_students = $cantidad_alumnos;
+        $certificates = Certificate::where('id_trainer', $trainer->id)
+            ->get();
         $cantidad_certificados = Certificate::where('id_trainer', $trainer->id)
             ->count();
+        $trainer->certificates = $certificates;
         $trainer->qty_certificates = $cantidad_certificados;
         return response()->json($trainer);
     }
