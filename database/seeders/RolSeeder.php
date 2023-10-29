@@ -32,7 +32,7 @@ class RolSeeder extends Seeder
         Permission::create(['name'=>'metricas'])->assignRole([$role5]);
         Permission::create(['name'=>'exercises'])->assignRole([$role5,$role2]); 
         Permission::create(['name'=>'trainer_routines'])->assignRole([$role2]);
-        Permission::create(['name'=>'specialist_request'])->assignRole([$role4]);
+        Permission::create(['name'=>'specialist_plans'])->assignRole([$role4]);
         
     }
 }
