@@ -96,7 +96,12 @@ Route::group([], function () {
 Route::group([], function(){
     Route::get('/specialist_requests', [SpecialistController::class, 'index']);
     Route::get('/get_plans', [SpecialistController::class, 'get_plans']);
+    Route::get('/specialist_requests_admin', [SpecialistController::class, 'index_admin']);
+    Route::post('/change_student_status', [SpecialistController::class, 'change_student_status']);
 });
+
+//Rutas de status_student 
+Route::get('/status_student', [SpecialistController::class, 'get_estados']);
 
 //Rutas de planes 
 Route::group([],function(){

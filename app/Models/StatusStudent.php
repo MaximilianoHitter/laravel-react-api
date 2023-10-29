@@ -14,4 +14,8 @@ class StatusStudent extends Model
     protected $fillable = [
         'status'
     ];
+
+    protected $casts = [
+        'updated_at'=>'datetime:d/m/Y'
+    ];
 }
