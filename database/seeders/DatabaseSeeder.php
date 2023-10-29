@@ -9,6 +9,7 @@ use App\Models\Specialist;
 use App\Models\SpecialistStudent;
 use App\Models\SpecialityPlan;
 use App\Models\Status;
+use App\Models\StatusStudent;
 use App\Models\Student;
 use App\Models\StudentGoal;
 use App\Models\Trainer;
@@ -33,6 +34,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Status::create(['status'=>'Inactivo']);
+
+        StatusStudent::create(['status'=>'Pendiente']);
+        StatusStudent::create(['status'=>'Activo']);
+        StatusStudent::create(['status'=>'Cancelado']);
 
         User::factory()->create([
             'name' => 'admin',
@@ -110,7 +115,7 @@ class DatabaseSeeder extends Seeder
         TrainerStudent::create([
             'student_id'=>1,
             'trainer_id'=>1,
-            'status'=>'Activo',
+            'status_student_id'=>2,
             'date'=>'2023-09-18'
         ]);
 
@@ -170,7 +175,7 @@ class DatabaseSeeder extends Seeder
         SpecialistStudent::create([
             'student_id'=>1,
             'specialist_id'=>1,
-            'status'=>'Activo',
+            'status_student_id'=>2,
             'date'=>'2023-10-29'
         ]);
 
@@ -185,5 +190,7 @@ class DatabaseSeeder extends Seeder
             'amount'=>1800,
             'color'=>'#FF0000'
         ]);
+
+        
     }
 }

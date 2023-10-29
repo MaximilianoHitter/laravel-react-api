@@ -121,7 +121,7 @@ class StudentController extends Controller
         $trainer_student = new TrainerStudent();
         $trainer_student->student_id = $student->id;
         $trainer_student->trainer_id = $trainer->id;
-        $trainer_student->status = 'Inactivo';
+        $trainer_student->status_student_id = 2;
         $trainer_student->date = Carbon::now()->format('Y-m-d');
         $trainer_student->save();
         return response()->json(['data' => 'success'], 200);

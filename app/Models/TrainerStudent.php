@@ -14,7 +14,7 @@ class TrainerStudent extends Model
         'id',
         'student_id',
         'trainer_id',
-        'status',
+        'status_student_id',
         'date',
         'updated_at'
     ];
