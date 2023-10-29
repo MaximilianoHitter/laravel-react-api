@@ -39,4 +39,8 @@ class Student extends Model
     public function payments():HasMany{
         return $this->hasMany(Payment::class);
     }
+
+    public function specialists():BelongsToMany{
+        return $this->belongsToMany(Specialist::class, 'specialist_students')->withPivot('id', 'status', 'date');
+    }
 }

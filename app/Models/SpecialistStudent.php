@@ -4,14 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class SpecialistStudent extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'id_student',
-        'id_specialist',
+        'student_id',
+        'specialist_id',
         'status',
         'date',
         'updated_at'
@@ -20,4 +21,5 @@ class SpecialistStudent extends Model
     protected $hidden = [
         'created_at'
     ];
+
 }

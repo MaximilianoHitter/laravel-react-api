@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('specialist_students', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_student')->constrained('students');
-            $table->foreignId('id_specialist')->constrained('specialists');
+            $table->foreignId('student_id')->constrained('students');
+            $table->foreignId('specialist_id')->constrained('specialists');
             $table->string('status');
             $table->date('date');
             $table->timestamps();

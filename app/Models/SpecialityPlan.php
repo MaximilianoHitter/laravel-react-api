@@ -11,8 +11,8 @@ class SpecialityPlan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_student',
-        'id_specialist',
+        'student_id',
+        'specialist_id',
         'name',
         'description',
         'initial_date',
@@ -20,7 +20,8 @@ class SpecialityPlan extends Model
         'id_payment',
         'student_feedback',
         'id_plan_status',
-        'amount'
+        'amount',
+        'color'
     ];
 
     public function student():BelongsTo{
@@ -36,6 +37,6 @@ class SpecialityPlan extends Model
     }
 
     public function status():BelongsTo{
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(Status::class, 'id_plan_status');
     }
 }

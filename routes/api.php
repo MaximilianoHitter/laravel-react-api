@@ -4,6 +4,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RoutineEventsController;
 use App\Http\Controllers\SpecialistController;
+use App\Http\Controllers\SpecialityPlanController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskController;
@@ -89,6 +90,20 @@ Route::group([], function () {
     Route::post('/set_feedback', [StudentController::class, 'set_feedback']);
     Route::get('/get_routines_unpayment', [StudentController::class, 'get_unpayed_routines']);
     Route::get('/goal/{goal_id}', [StudentController::class, 'get_goal']);
+});
+
+//Rutas de specialista
+Route::group([], function(){
+    Route::get('/specialist_requests', [SpecialistController::class, 'index']);
+    Route::get('/get_plans', [SpecialistController::class, 'get_plans']);
+});
+
+//Rutas de planes 
+Route::group([],function(){
+    Route::post('/get_planes_student', [SpecialityPlanController::class, 'index']);
+    Route::post('/change_plan_status', [SpecialityPlanController::class, 'change_status']);
+    Route::post('/borrar_plan', [SpecialityPlanController::class, 'borrar_plan']);
+    Route::post('/plan_store', [SpecialityPlanController::class, 'store']);
 });
 
 //Rutas de Payment

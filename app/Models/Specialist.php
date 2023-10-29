@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Specialist extends Model
@@ -25,7 +26,7 @@ class Specialist extends Model
         return $this->hasManyThrough(Branch::class, SpecialistBranch::class);
     }
 
-    public function students():HasManyThrough{
-        return $this->hasManyThrough(Student::class, SpecialistStudent::class);
+    public function students():BelongsToMany{
+        return $this->belongsToMany(Student::class, 'specialist_students')->withPivot('id','status', 'date');
     }
 }

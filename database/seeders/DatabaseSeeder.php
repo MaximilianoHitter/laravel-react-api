@@ -5,6 +5,9 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\RoutineEvents;
+use App\Models\Specialist;
+use App\Models\SpecialistStudent;
+use App\Models\SpecialityPlan;
 use App\Models\Status;
 use App\Models\Student;
 use App\Models\StudentGoal;
@@ -26,8 +29,10 @@ class DatabaseSeeder extends Seeder
         $this->call(Rolseeder::class);
 
         Status::create([
-            'status' => 'Activo'
+            'status' => 'Activo',
         ]);
+
+        Status::create(['status'=>'Inactivo']);
 
         User::factory()->create([
             'name' => 'admin',
@@ -142,6 +147,43 @@ class DatabaseSeeder extends Seeder
             'trainer_routine_id'=>1,
             'student_feedback'=>null,
             'description'=>'Hacer el dia 3'
+        ]);
+
+        User::factory()->create([
+            'name' => 'gandalf',
+            'email' => 'gandalf@admin.com',
+            'password' => Hash::make('admin'),
+            'status' => 'Activo'
+        ])->assignRole('Especialista');
+
+        Specialist::create([
+            'id_user'=>5,
+            'name'=>'Gandalf',
+            'last_name'=>'The Gray',
+            'profile_picture_url'=>'https://unsplash.com/es/fotos/robot-gris-con-traje-negro-9paY25EHOBo',
+            'day_of_birth'=>'1550-01-01',
+            'weight'=>80,
+            'height'=>2.00,
+            'description'=>'Un mago pesa lo que debe pesar, ni mas, ni menos.'
+        ]);
+
+        SpecialistStudent::create([
+            'student_id'=>1,
+            'specialist_id'=>1,
+            'status'=>'Activo',
+            'date'=>'2023-10-29'
+        ]);
+
+        SpecialityPlan::create([
+            'student_id'=>1,
+            'specialist_id'=>1,
+            'name'=>"pruebita",
+            'description'=>'asdasdasd',
+            'initial_date'=>'2023-10-29',
+            'final_date'=>'2023-10-31',
+            'id_plan_status'=>1,
+            'amount'=>1800,
+            'color'=>'#FF0000'
         ]);
     }
 }

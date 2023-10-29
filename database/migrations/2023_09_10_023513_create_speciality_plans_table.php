@@ -13,16 +13,17 @@ return new class extends Migration
     {
         Schema::create('speciality_plans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_student')->constrained('students');
-            $table->foreignId('id_specialist')->constrained('specialists');
+            $table->foreignId('student_id')->constrained('students');
+            $table->foreignId('specialist_id')->constrained('specialists');
             $table->string('name');
             $table->longText('description');
             $table->date('initial_date');
             $table->date('final_date');
-            $table->foreignId('id_payment')->constrained('payments');
-            $table->longText('student_feedback');
+            $table->integer('id_payment')->nullable();
+            $table->longText('student_feedback')->nullable();
             $table->foreignId('id_plan_status')->constrained('statuses');
             $table->decimal('amount', 8, 2, false);
+            $table->string('color');
             $table->timestamps();
         });
     }
