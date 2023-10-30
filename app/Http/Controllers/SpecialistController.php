@@ -55,6 +55,14 @@ class SpecialistController extends Controller
     public function show(Specialist $specialist)
     {
         //
+        return response()->json(['specialists' => Specialist::all()]);
+    }
+
+    public function show_id($id_specialist)
+    {
+        $specialist = Specialist::where('id_user', $id_specialist)
+            ->first();
+        return response()->json(['data' => $specialist]);
     }
 
     /**

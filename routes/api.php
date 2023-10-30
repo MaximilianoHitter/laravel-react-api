@@ -95,6 +95,8 @@ Route::group([], function () {
 
 //Rutas de specialista
 Route::group([], function(){
+    Route::get('/specialists', [SpecialistController::class, 'show']);
+    Route::get('/specialists/{id}', [SpecialistController::class, 'show_id']);
     Route::get('/specialist_requests', [SpecialistController::class, 'index']);
     Route::get('/get_plans', [SpecialistController::class, 'get_plans']);
     Route::get('/specialist_requests_admin', [SpecialistController::class, 'index_admin']);
