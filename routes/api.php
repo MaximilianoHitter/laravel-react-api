@@ -91,6 +91,8 @@ Route::group([], function () {
     Route::post('/set_feedback', [StudentController::class, 'set_feedback']);
     Route::get('/get_routines_unpayment', [StudentController::class, 'get_unpayed_routines']);
     Route::get('/goal/{goal_id}', [StudentController::class, 'get_goal']);
+    Route::get('/pagos_rutinas_student', [StudentController::class, 'pagos_rutinas_student']);
+    Route::get('/pagos_planes_student', [StudentController::class, 'pagos_planes_student']);
 });
 
 //Rutas de specialista

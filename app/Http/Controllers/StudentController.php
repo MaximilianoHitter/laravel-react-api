@@ -6,6 +6,7 @@ use App\Http\Resources\GeneralCollection;
 use App\Http\Resources\StudentGoalCollection;
 use App\Http\Resources\StudentRoutineCollection;
 use App\Models\RoutineEvents;
+use App\Models\SpecialityPlan;
 use App\Models\Student;
 use App\Models\StudentGoal;
 use App\Models\Trainer;
@@ -188,11 +189,23 @@ class StudentController extends Controller
 
     public function get_student_data($id_user)
     {
-        $student = Student::where('id_user', $id_user)
-            ->first();
-        $student_goal = StudentGoal::where('id_student', $student->id)
-            ->first();
+        $student = Student::where('id_user', $id_user)->first();
+        $student_goal = StudentGoal::where('id_student', $student->id)->first();
         $student->goal = $student_goal->name;
         return response()->json(['data' => $student]);
+    }
+
+    public function pagos_rutinas_student(){
+        $user_id = Auth::id();
+        $student = Student::where('id_user', $user_id)->first();
+        $rutinas_no_pagas = TrainerRoutine::where('id_payment', '!=', null)->where('id_student', $student->id)->with('trainer', 'payment')->get();
+        return new GeneralCollection($rutinas_no_pagas);
+    }
+
+    public function pagos_planes_student(){
+        $user_id = Auth::id();
+        $student = Student::where('id_user', $user_id)->first();
+        $planes_no_pagos = SpecialityPlan::where('id_payment', '!=', null)->where('student_id', $student->id)->with('specialist', 'payment')->get();
+        return new GeneralCollection($planes_no_pagos);
     }
 }
