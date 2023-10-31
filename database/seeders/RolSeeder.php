@@ -37,5 +37,6 @@ class RolSeeder extends Seeder
         Permission::create(['name' => 'specialist_plans'])->assignRole([$role4]);
         Permission::create(['name' => 'specialist_request'])->assignRole([$role4]);
         Permission::create(['name'=> 'student_payment'])->assignRole([$role5]);
+        Permission::create(['name'=>'student_plans'])->assignRole([$role5]);
     }
 }
