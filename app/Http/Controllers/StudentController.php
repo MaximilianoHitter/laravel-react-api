@@ -6,11 +6,13 @@ use App\Http\Resources\GeneralCollection;
 use App\Http\Resources\StudentGoalCollection;
 use App\Http\Resources\StudentRoutineCollection;
 use App\Models\RoutineEvents;
+use App\Models\Specialist;
 use App\Models\Student;
 use App\Models\StudentGoal;
 use App\Models\Trainer;
 use App\Models\TrainerRoutine;
 use App\Models\TrainerStudent;
+use App\Models\SpecialistStudent;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -127,13 +129,52 @@ class StudentController extends Controller
         return response()->json(['data' => 'success'], 200);
     }
 
+    public function asign_specialist(Request $request)
+    {
+        $specialist = Specialist::find($request->specialist_id);
+        $user_id = Auth::id();
+        $student = Student::where('id_user', $user_id)
+            ->first();
+        $specialist_student = new SpecialistStudent();
+        $specialist_student->student_id = $student->id;
+        $specialist_student->specialist_id = $specialist->id;
+        $specialist_student->status_student_id = 2;
+        $specialist_student->date = Carbon::now()->format('Y-m-d');
+        $specialist_student->save();
+        return response()->json(['data' => 'success'], 200);
+    }
+
     public function is_connected_trainer(Request $request)
     {
         $trainer = Trainer::find($request->trainer_id);
         $user_id = Auth::id();
         $student = Student::where('id_user', $user_id)
             ->first();
-        $is_connected = $student->trainers->contains($trainer);
+        $relacion = TrainerStudent::where('student_id', $student->id)
+            ->where('trainer_id', $trainer->id)
+            ->get();
+        if (count($relacion) > 0) {
+            $is_connected = true;
+        } else {
+            $is_connected = false;
+        }
+        return response()->json(['data' => $is_connected]);
+    }
+
+    public function is_connected_specialist(Request $request)
+    {
+        $specialist = Specialist::find($request->specialist_id);
+        $user_id = Auth::id();
+        $student = Student::where('id_user', $user_id)
+            ->first();
+        $relacion = SpecialistStudent::where('student_id', $student->id)
+            ->where('specialist_id', $specialist->id)
+            ->get();
+        if (count($relacion) > 0) {
+            $is_connected = true;
+        } else {
+            $is_connected = false;
+        }
         return response()->json(['data' => $is_connected]);
     }
 
