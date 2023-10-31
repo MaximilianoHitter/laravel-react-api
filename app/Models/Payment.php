@@ -20,6 +20,10 @@ class Payment extends Model
         'status',
     ];
 
+    protected $casts = [
+        'updated_at'=>'datetime:d/m/Y'
+    ];
+
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'id_student');
