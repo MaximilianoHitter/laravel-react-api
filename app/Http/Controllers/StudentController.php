@@ -172,6 +172,15 @@ class StudentController extends Controller
         return response()->json(['data' => $rutinas]);
     }
 
+    public function get_unpayed_plans()
+    {
+        $user_id = Auth::id();
+        //$user_id = 2;
+        $student = Student::where('id_user', $user_id)->first();
+        $rutinas = SpecialityPlan::where('student_id', $student->id)->where('id_payment', null)->with('specialist')->get();
+        return new GeneralCollection($rutinas);
+    }
+
     public function set_profile_data(Request $request)
     {
         $user_id = Auth::id();

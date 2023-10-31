@@ -90,6 +90,7 @@ Route::group([], function () {
     Route::get('/student_trainers', [StudentController::class, 'get_trainers']);
     Route::post('/set_feedback', [StudentController::class, 'set_feedback']);
     Route::get('/get_routines_unpayment', [StudentController::class, 'get_unpayed_routines']);
+    Route::get('/get_plans_unpayment', [StudentController::class, 'get_unpayed_plans']);
     Route::get('/goal/{goal_id}', [StudentController::class, 'get_goal']);
     Route::get('/pagos_rutinas_student', [StudentController::class, 'pagos_rutinas_student']);
     Route::get('/pagos_planes_student', [StudentController::class, 'pagos_planes_student']);
@@ -114,6 +115,8 @@ Route::group([],function(){
     Route::post('/change_plan_status', [SpecialityPlanController::class, 'change_status']);
     Route::post('/borrar_plan', [SpecialityPlanController::class, 'borrar_plan']);
     Route::post('/plan_store', [SpecialityPlanController::class, 'store']);
+    Route::post('/get_plan', [SpecialityPlanController::class, 'get_plan']);
+    Route::post('/plan_payment_store', [SpecialityPlanController::class, 'payment_store']);
 });
 
 //Rutas de Payment

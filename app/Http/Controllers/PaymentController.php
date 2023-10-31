@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PaymentStoreRequest;
 use App\Models\Payment;
+use App\Models\Specialist;
+use App\Models\SpecialityPlan;
 use App\Models\Student;
 use App\Models\Trainer;
 use App\Models\TrainerRoutine;
@@ -23,20 +25,21 @@ class PaymentController extends Controller
         $rol = $user->getRoleNames();
         $rol = $rol->toArray();
         $rol_string = implode(',', $rol);
-        if(str_contains($rol_string, 'Alumno')){
-            $student = Student::where('id_user', $user_id)->first();
-            $payments = Payment::where('id_student', $student->id)->with('routine', 'routine.trainer')->get();
-            $payments_parsed = [];
-            foreach ($payments as $payment) {
+        if(str_contains($rol_string, 'Especialista')){
+            $student = Specialist::where('id_user', $user_id)->first();
+            $routines = SpecialityPlan::where('specialist_id', $student->id)->where('id_payment', '!=', null)->with('payment', 'student')->get();
+            foreach ($routines as $routine) {
                 $obj = null;
-                $obj = $payment;
-                $obj->payment_identificator = $payment->id;
-                $obj->person_name = $payment->student->name;
-                $obj->routine_name = $payment->routine->name;
-                $obj->updated_at_parsed = $payment->updated_at->format('d/m/Y');
-                $payments_parsed[] = $obj;
+                $obj = $routine;
+                $obj->payment_identificator = $routine->id_payment;
+                $obj->person_name = $routine->student->name;
+                $obj->routine_name = $routine->name;
+                $obj->payment_type = $routine->payment->payment_type;
+                $obj->status = $routine->payment->status;
+                $obj->payment->updated_at_parsed = $routine->payment->updated_at->format('d/m/Y');
+                $routines_parsed[] = $obj;
             }
-            return response()->json(['data'=>$payments_parsed]);
+            return response()->json(['data'=>$routines_parsed]);
         }elseif(str_contains($rol_string, 'Trainer')){
             $trainer = Trainer::where('id_user', $user_id)->first();
             $routines = TrainerRoutine::where('id_trainer', $trainer->id)->where('id_payment', '!=', null)->with('payment', 'student')->get();

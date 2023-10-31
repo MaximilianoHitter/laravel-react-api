@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PaymentStorePlanRequest;
+use App\Http\Requests\PaymentStoreRequest;
 use App\Http\Resources\GeneralCollection;
+use App\Models\Payment;
 use App\Models\Specialist;
 use App\Models\SpecialityPlan;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -103,5 +107,26 @@ class SpecialityPlanController extends Controller
         }else{
             return response()->json(['errors'=>['general'=>'No se ha encontrado dicho plan.']], 422);
         }
+    }
+
+    public function get_plan(Request $request){
+        $routine = SpecialityPlan::where('id', $request->specialist_plan_id)->with('specialist')->first();
+        return response()->json(['data'=>$routine]);
+    }
+
+    public function payment_store(PaymentStorePlanRequest $request){
+        $user_id = Auth::id();
+        $student = Student::where('id_user', $user_id)->first();
+        $payment = new Payment();
+        $payment->id_student = $student->id;
+        $payment->amount = $request->amount;
+        $payment->reason = $request->reason;
+        $payment->payment_type = $request->payment_type;
+        $payment->status = 'Ingresado';
+        $payment->save();
+        $routine = SpecialityPlan::find($request->specialist_plan_id);
+        $routine->id_payment = $payment->id;
+        $routine->save();
+        return response()->json(['data'=>'success'], 200);
     }
 }
