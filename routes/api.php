@@ -56,6 +56,7 @@ Route::group([], function () {
     Route::post('/student_routines', [TrainerRoutineController::class, 'rutinas_de_alumno']);
     Route::post('/trainerroutinedl', [TrainerRoutineController::class, 'destroy']);
     Route::post('/trainer_routines', [TrainerRoutineController::class, 'rutinas_de_trainer']);
+    Route::post('/eventos_de_rutinas', [TrainerRoutineController::class, 'eventos_de_rutinas']);
     Route::post('/get_routine', [TrainerRoutineController::class, 'show']);
     Route::post('/change_routine_status', [TrainerRoutineController::class, 'cambiar_estado']);
     Route::post('/borrar_rutina', [TrainerRoutineController::class, 'borrar_rutina']);

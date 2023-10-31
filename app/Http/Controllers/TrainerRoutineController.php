@@ -24,8 +24,9 @@ class TrainerRoutineController extends Controller
         return TrainerRoutine::with('events')->get();
     }
 
-    public function new_store(TrainerRoutineStoreRequest $request){
-        $user_id = Auth::id();//Auth::user()->id;
+    public function new_store(TrainerRoutineStoreRequest $request)
+    {
+        $user_id = Auth::id(); //Auth::user()->id;
         $trainer = Trainer::where('id_user', $user_id)->first();
         //return $trainer;
         $routine = new TrainerRoutine();
@@ -52,7 +53,7 @@ class TrainerRoutineController extends Controller
     {
         $asd = $request;
         //return $request;
-        $user_id = Auth::id();//Auth::user()->id;
+        $user_id = Auth::id(); //Auth::user()->id;
         $trainer = Trainer::where('id_user', $user_id)->first();
         //return $trainer;
         $routine = new TrainerRoutine();
@@ -68,39 +69,39 @@ class TrainerRoutineController extends Controller
         $routine->id_payment = null;
         $routine->description = implode(' | ', $request->descriptions);
         $routine->color = $request->color;
-        
+
 
         $initial_date = Carbon::parse($request->initial_date);
         $nueva_fecha_inicial = $initial_date->format('Y-m-d');
         $final_date = Carbon::parse($request->final_date);
         $cantidad_de_dias = $initial_date->diffInDays($final_date);
         //ver que las fechas de la rutina no estén intercambiadas
-        if($initial_date > $final_date){
-            return response()->json(['errors'=>['initial_date'=>'La fecha de inicio no puede ser mayor a la fecha de fin', 'final_date'=>'La fecha de fin no puede ser menor a la fecha de inicio']], 422);
+        if ($initial_date > $final_date) {
+            return response()->json(['errors' => ['initial_date' => 'La fecha de inicio no puede ser mayor a la fecha de fin', 'final_date' => 'La fecha de fin no puede ser menor a la fecha de inicio']], 422);
         }
         //ver que las fechas no estén dentro de otra rutina 
         $rutinas_entrecruzadas_initial = TrainerRoutine::where('id_trainer', $trainer->id)
-        ->where('id_student', $request->id_student)
-        ->whereDate('initial_date', '<=', $initial_date)->whereDate('final_date', '>=', $initial_date)->get();
-        if(count($rutinas_entrecruzadas_initial) > 0){
-            return response()->json(['errors'=>['initial_date'=>'La fecha de inicio se encuentra dentro de otra rutina']], 422);
+            ->where('id_student', $request->id_student)
+            ->whereDate('initial_date', '<=', $initial_date)->whereDate('final_date', '>=', $initial_date)->get();
+        if (count($rutinas_entrecruzadas_initial) > 0) {
+            return response()->json(['errors' => ['initial_date' => 'La fecha de inicio se encuentra dentro de otra rutina']], 422);
         }
         $rutinas_entrecruzadas_final = TrainerRoutine::where('id_trainer', $trainer->id)
-        ->where('id_student', $request->id_student)
-        ->whereDate('initial_date', '<=', $final_date)->whereDate('final_date', '>=', $final_date)->get();
-        if(count($rutinas_entrecruzadas_final) > 0){
-            return response()->json(['errors'=>['final_date'=>'La fecha de fin se encuentra dentro de otra rutina']], 422);
+            ->where('id_student', $request->id_student)
+            ->whereDate('initial_date', '<=', $final_date)->whereDate('final_date', '>=', $final_date)->get();
+        if (count($rutinas_entrecruzadas_final) > 0) {
+            return response()->json(['errors' => ['final_date' => 'La fecha de fin se encuentra dentro de otra rutina']], 422);
         }
 
 
         $routine->save();
-        $cantidad_de_dias = $cantidad_de_dias+1;
-        if($request->initial_date == $request->final_date){
+        $cantidad_de_dias = $cantidad_de_dias + 1;
+        if ($request->initial_date == $request->final_date) {
             $cantidad_de_dias = 1;
         }
-       
+
         $descriptions = $request->descriptions;
-        for ($i=0; $i < $cantidad_de_dias; $i++) { 
+        for ($i = 0; $i < $cantidad_de_dias; $i++) {
             $date_event = $nueva_fecha_inicial;
             $routine_event = new RoutineEvents();
             $routine_event->trainer_routine_id = $routine->id;
@@ -109,9 +110,9 @@ class TrainerRoutineController extends Controller
             $routine_event->date = $nueva_fecha;
             $nueva_fecha = null;
             $routine_event->student_feedback = '';
-            if(array_key_exists($i, $descriptions)){
+            if (array_key_exists($i, $descriptions)) {
                 $routine_event->description = trim($descriptions[$i]);
-            }else{
+            } else {
                 $routine_event->description = trim($descriptions[0]);
             }
             $routine_event->save();
@@ -124,7 +125,7 @@ class TrainerRoutineController extends Controller
     public function show(TrainerRoutineShowRequest $request)
     {
         $routine = TrainerRoutine::where('id', $request->trainerroutine_id)->with('trainer')->first();
-        return response()->json(['data'=>$routine]);
+        return response()->json(['data' => $routine]);
     }
 
     /**
@@ -143,14 +144,18 @@ class TrainerRoutineController extends Controller
         $trainer_routine = TrainerRoutine::find($request->rutina_id);
         RoutineEvents::where('trainer_routine_id', $trainer_routine->id)->delete();
         $trainer_routine->delete();
-        return response()->json(['data'=>'success'], 200);
+        return response()->json(['data' => 'success'], 200);
     }
 
-    public function rutinas_de_alumno(Request $request){
+    public function rutinas_de_alumno(Request $request)
+    {
         //hay que validar que existe el alumno del id
         $user_id = Auth::id();
         $trainer = Trainer::where('id_user', $user_id)->first();
-        $rutinas = TrainerRoutine::with('events', 'goal', 'status')->where('id_trainer', $trainer->id)->where('id_student', $request->student_id)->get();
+        $rutinas = TrainerRoutine::with('events', 'goal', 'status')
+            ->where('id_trainer', $trainer->id)
+            ->where('id_student', $request->student_id)
+            ->get();
         $rutinas_a_devolver = [];
         foreach ($rutinas as $key => $rutina) {
             $descripcion = [];
@@ -160,51 +165,80 @@ class TrainerRoutineController extends Controller
             $rutina->description = $descripcion;
             $rutinas_a_devolver[] = $rutina;
         }
-        return New StudentRoutineCollection($rutinas_a_devolver);
+        return new StudentRoutineCollection($rutinas_a_devolver);
     }
 
-    public function rutinas_de_trainer(Request $request){
+    public function rutinas_de_trainer(Request $request)
+    {
         //hay que validar que existe el alumno del id
         $user_id = Auth::id();
         $student = Student::where('id_user', $user_id)->first();
         $trainer_id = $request->trainer_id;
 
-        $eventos = RoutineEvents::with('routine', 'routine.payment')->whereHas('routine', function($query) use ($trainer_id, $student){
-            $query->where('id_trainer', $trainer_id)->where('id_student', $student->id);
-        })->get();
+        $eventos = RoutineEvents::with('routine', 'routine.payment')
+            ->whereHas(
+                'routine',
+                function ($query) use ($trainer_id, $student) {
+                    $query->where('id_trainer', $trainer_id)
+                        ->where('id_student', $student->id);
+                }
+            )
+            ->get();
         return new StudentRoutineCollection($eventos);
     }
 
-    public function estados(){
+    public function eventos_de_rutinas(Request $request)
+    {
+        //hay que validar que existe el alumno del id
+        $user_id = Auth::id();
+        $student = Student::where('id_user', $user_id)->first();
+        $goal_id = $request->goal_id;
+
+        $eventos = RoutineEvents::with('routine', 'routine.payment')
+            ->whereHas(
+                'routine',
+                function ($query) use ($goal_id, $student) {
+                    $query->where('id_student_goal', $goal_id)
+                        ->where('id_student', $student->id);
+                }
+            )
+            ->get();
+        return new StudentRoutineCollection($eventos);
+    }
+
+    public function estados()
+    {
         $estados = Status::all();
         return new StudentRoutineCollection($estados);
     }
 
-    public function cambiar_estado(Request $request){
+    public function cambiar_estado(Request $request)
+    {
         $id = $request->estado_id;
         $rutina_id = $request->rutina_id;
         $rutina = TrainerRoutine::find($rutina_id);
-        if($rutina != null){
+        if ($rutina != null) {
             $rutina->id_routine_status = $id;
             $rutina->save();
             return response()->json(['success']);
-        }else{
-            return response()->json(['errors'=>['rutina_id'=>'No se encontro la rutina']]);
+        } else {
+            return response()->json(['errors' => ['rutina_id' => 'No se encontro la rutina']]);
         }
     }
 
-    public function borrar_rutina(Request $request){
+    public function borrar_rutina(Request $request)
+    {
         $id = $request->routine_id;
         $rutina = TrainerRoutine::find($id);
-        if($rutina != null){
+        if ($rutina != null) {
             $eventos = RoutineEvents::where('trainer_routine_id', $id)->get();
             foreach ($eventos as $key => $value) {
                 $value->delete();
             }
             $rutina->delete();
             return response()->json(['success']);
-        }else{
-            return response()->json(['errors'=>['general'=>'Algo paso']], 422);
+        } else {
+            return response()->json(['errors' => ['general' => 'Algo paso']], 422);
         }
     }
 }
