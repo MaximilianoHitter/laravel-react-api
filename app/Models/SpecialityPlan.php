@@ -33,7 +33,7 @@ class SpecialityPlan extends Model
     }
 
     public function payment():BelongsTo{
-        return $this->belongsTo(Payment::class);
+        return $this->belongsTo(Payment::class, 'id_payment', 'id');
     }
 
     public function status():BelongsTo{

@@ -26,8 +26,10 @@ class PaymentController extends Controller
         $rol = $rol->toArray();
         $rol_string = implode(',', $rol);
         if(str_contains($rol_string, 'Especialista')){
+            $routines_parsed = [];
             $student = Specialist::where('id_user', $user_id)->first();
             $routines = SpecialityPlan::where('specialist_id', $student->id)->where('id_payment', '!=', null)->with('payment', 'student')->get();
+            return response()->json(['data'=>$routines]);
             foreach ($routines as $routine) {
                 $obj = null;
                 $obj = $routine;
