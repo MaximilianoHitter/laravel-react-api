@@ -129,4 +129,11 @@ class SpecialityPlanController extends Controller
         $routine->save();
         return response()->json(['data'=>'success'], 200);
     }
+
+    public function set_feedback(Request $request){
+        $plan = SpecialityPlan::find($request->id_plan);
+        $plan->student_feedback = $request->feedback;
+        $plan->save();
+        return response()->json(['data'=>'success']);
+    }
 }

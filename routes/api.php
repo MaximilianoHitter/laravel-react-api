@@ -97,6 +97,8 @@ Route::group([], function () {
     Route::get('/goal/{goal_id}', [StudentController::class, 'get_goal']);
     Route::get('/pagos_rutinas_student', [StudentController::class, 'pagos_rutinas_student']);
     Route::get('/pagos_planes_student', [StudentController::class, 'pagos_planes_student']);
+    Route::get('/student_specialists', [StudentController::class, 'get_especialistas']);
+    Route::post('/specialist_plans', [StudentController::class, 'obtener_planes']);
 });
 
 //Rutas de specialista
@@ -120,6 +122,7 @@ Route::group([],function(){
     Route::post('/plan_store', [SpecialityPlanController::class, 'store']);
     Route::post('/get_plan', [SpecialityPlanController::class, 'get_plan']);
     Route::post('/plan_payment_store', [SpecialityPlanController::class, 'payment_store']);
+    Route::post('/set_plan_feedback', [SpecialityPlanController::class, 'set_feedback']);
 });
 
 //Rutas de Payment

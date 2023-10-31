@@ -182,10 +182,8 @@ class StudentController extends Controller
     public function get_trainers()
     {
         $user_id = Auth::id();
-        $student = Student::where('id_user', $user_id)
-            ->first();
-        $student_a = Student::with('trainers')
-            ->find($student->id);
+        $student = Student::where('id_user', $user_id)->first();
+        $student_a = Student::with('trainers')->find($student->id);
         $trainers = $student_a->trainers;
         return new GeneralCollection($trainers);
     }
@@ -257,5 +255,20 @@ class StudentController extends Controller
         $student = Student::where('id_user', $user_id)->first();
         $planes_no_pagos = SpecialityPlan::where('id_payment', '!=', null)->where('student_id', $student->id)->with('specialist', 'payment')->get();
         return new GeneralCollection($planes_no_pagos);
+    }
+
+    public function get_especialistas(){
+        $user_id = Auth::id();
+        $student = Student::where('id_user', $user_id)->first();
+        $especialistas = SpecialistStudent::where('student_id', $student->id)->where('status_student_id', 2)->with('specialist')->get();
+        return new GeneralCollection($especialistas);
+    }
+
+    public function obtener_planes(Request $request){
+        $user_id = Auth::id();
+        $student = Student::where('id_user', $user_id)->first();
+        $specialist = Specialist::find($request->specialist_id);
+        $planes = SpecialityPlan::where('student_id', $student->id)->where('specialist_id', $request->specialist_id)->with('payment', 'status')->get();
+        return new GeneralCollection($planes);
     }
 }

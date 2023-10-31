@@ -28,7 +28,7 @@ class Student extends Model
     ];
 
     public function trainers():BelongsToMany{
-        return $this->belongsToMany(Trainer::class, 'trainer_students')->withPivot('id','status', 'date');
+        return $this->belongsToMany(Trainer::class, 'trainer_students')->withPivot('id','status_student_id', 'date');
     }
 
 
