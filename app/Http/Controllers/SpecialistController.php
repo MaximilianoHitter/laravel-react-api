@@ -60,7 +60,7 @@ class SpecialistController extends Controller
 
     public function show_id($id_specialist)
     {
-        $specialist = Specialist::where('id_user', $id_specialist)
+        $specialist = Specialist::where('id', $id_specialist)
             ->first();
         return response()->json(['data' => $specialist]);
     }

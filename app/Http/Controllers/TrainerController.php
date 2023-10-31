@@ -50,7 +50,7 @@ class TrainerController extends Controller
     {
         $trainer = Trainer::find($id_trainer);
         $cantidad_alumnos = TrainerStudent::where('trainer_id', $trainer->id)
-            ->where('status', 'Activo')
+            ->where('status_student_id', '2')
             ->count();
         $trainer->qty_students = $cantidad_alumnos;
         $certificates = Certificate::where('id_trainer', $trainer->id)

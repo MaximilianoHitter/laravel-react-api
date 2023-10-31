@@ -87,6 +87,8 @@ Route::group([], function () {
     Route::get('/routines_student', [StudentController::class, 'get_routines']); //revisar en el front
     Route::post('/asign_trainer', [StudentController::class, 'asign_trainer']);
     Route::post('/is_connected_trainer', [StudentController::class, 'is_connected_trainer']);
+    Route::post('/asign_specialist', [StudentController::class, 'asign_specialist']);
+    Route::post('/is_connected_specialist', [StudentController::class, 'is_connected_specialist']);
     Route::get('/student_trainers', [StudentController::class, 'get_trainers']);
     Route::post('/set_feedback', [StudentController::class, 'set_feedback']);
     Route::get('/get_routines_unpayment', [StudentController::class, 'get_unpayed_routines']);
