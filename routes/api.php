@@ -11,6 +11,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\TrainerRoutineController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SoapController;
 use App\Models\TrainerRoutine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -158,3 +159,6 @@ Route::group([], function () {
     Route::get('/get_trainer_data/{id_user}', [TrainerController::class, 'get_trainer_data']);
     Route::get('/get_specialist_data/{id_user}', [SpecialistController::class, 'get_specialist_data']);
 });
+
+//sopa
+Route::post('/consume-soap-service', [SoapController::class, 'consume']);
