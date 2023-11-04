@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\StudentRoutineCollection;
 use App\Models\Student;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CustomMail;
+use App\Models\User;
 
 class TrainerRoutineController extends Controller
 {
@@ -43,6 +46,15 @@ class TrainerRoutineController extends Controller
         $routine->description = $request->descriptions;
         $routine->color = $request->color;
         $routine->save();
+        $student = Student::find($request->id_student);
+        $user_student = User::find($student->id_user);
+        $asd = new CustomMail();/*
+        $data = [
+            'name' => 'asd',
+            'message' => 'This is a custom email message.',
+        ];*/
+        Mail::to($user_student->email)->send($asd->mailCreateRutina($trainer->name, $routine->name)); 
+
         return response()->json(['success'], 200);
     }
 
