@@ -48,11 +48,7 @@ class TrainerRoutineController extends Controller
         $routine->save();
         $student = Student::find($request->id_student);
         $user_student = User::find($student->id_user);
-        $asd = new CustomMail();/*
-        $data = [
-            'name' => 'asd',
-            'message' => 'This is a custom email message.',
-        ];*/
+        $asd = new CustomMail();
         Mail::to($user_student->email)->send($asd->mailCreateRutina($trainer->name, $routine->name)); 
 
         return response()->json(['success'], 200);
