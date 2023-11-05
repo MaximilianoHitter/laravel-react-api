@@ -82,16 +82,16 @@ class PaymentController extends Controller
         $payment->reason = $request->reason;
         $payment->payment_type = $request->payment_type;
         $payment->status = 'Ingresado';
-        /* $payment->save();
+        $payment->save();
         $routine = TrainerRoutine::find($request->trainerroutine_id);
         $routine->id_payment = $payment->id;
-        $routine->save(); */
-        $files = $request->file('files');
+        $routine->save();
+        //$files = $request->file('files');
         /* $path = [];
         foreach ($files as $key => $value) {
             $path[] = $value->store();
         } */
-        return response()->json(['data'=>$files->store()], 422);
+        return response()->json(['data'=>'success'], 200);
     }
 
     /**
