@@ -18,6 +18,7 @@ class Payment extends Model
         'reason',
         'payment_type',
         'status',
+        'path_archivo'
     ];
 
     protected $casts = [

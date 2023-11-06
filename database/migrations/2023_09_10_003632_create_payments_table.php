@@ -18,6 +18,7 @@ return new class extends Migration
             $table->longText('reason')->nullable();
             $table->string('payment_type');
             $table->string('status');
+            $table->string('path_archivo');
             $table->timestamps();
         });
     }
