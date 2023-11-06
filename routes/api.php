@@ -124,6 +124,7 @@ Route::group([],function(){
     Route::post('/get_plan', [SpecialityPlanController::class, 'get_plan']);
     Route::post('/plan_payment_store', [SpecialityPlanController::class, 'payment_store']);
     Route::post('/set_plan_feedback', [SpecialityPlanController::class, 'set_feedback']);
+    Route::get('/ver_archivo/{id_archivo}', [SpecialityPlanController::class, 'ver_archivo']);
 });
 
 //Rutas de Payment

@@ -11,6 +11,7 @@ use App\Models\SpecialityPlan;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\File\File;
 
 class SpecialityPlanController extends Controller
 {
@@ -142,5 +143,13 @@ class SpecialityPlanController extends Controller
         $plan->student_feedback = $request->feedback;
         $plan->save();
         return response()->json(['data'=>'success']);
+    }
+
+    public function ver_archivo($id_payment){
+        $payment = Payment::find($id_payment);
+        $path = storage_path('app/'.$payment->path_archivo);
+        $file = new File($path);
+        $base = 'data:image/'.$file->getExtension().";base64,".base64_encode(file_get_contents($file));
+        return response()->json(['data'=>$base]);
     }
 }
