@@ -123,6 +123,13 @@ class SpecialityPlanController extends Controller
         $payment->reason = $request->reason;
         $payment->payment_type = $request->payment_type;
         $payment->status = 'Ingresado';
+        $files = $request->file('files');
+
+        $path = [];
+        foreach ($files as $key => $value) {
+            $path[] = $value->store();
+        }
+        $payment->path_archivo = $path[0];
         $payment->save();
         $routine = SpecialityPlan::find($request->specialist_plan_id);
         $routine->id_payment = $payment->id;
