@@ -18,6 +18,7 @@ use App\Models\TrainerStudent;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Branch;
 
 class DatabaseSeeder extends Seeder
 {
@@ -189,6 +190,23 @@ class DatabaseSeeder extends Seeder
             'id_plan_status' => 1,
             'amount' => 1800,
             'color' => '#FF0000'
+        ]);
+
+        Branch::create([
+            'name' => 'Kinesiólogo',
+            'description' => 'Especialista para prevenir y tratar lesiones deportivas.',
+        ]);
+        Branch::create([
+            'name' => 'Nutricionista',
+            'description' => 'Diseña planes alimenticios para mejorar la salud de los deportistas.',
+        ]);
+        Branch::create([
+            'name' => 'Traumatólogo',
+            'description' => 'Diagnostica, trata y rehabilita lesiones de los huesos y articulaciones.',
+        ]);
+        Branch::create([
+            'name' => 'Psicólogo',
+            'description' => 'Ayuda a los deportistas a superar sus problemas emocionales y mentales.',
         ]);
     }
 }
