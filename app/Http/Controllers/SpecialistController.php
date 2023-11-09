@@ -9,6 +9,7 @@ use App\Models\SpecialityPlan;
 use App\Models\StatusStudent;
 use Illuminate\Http\Request;
 use App\Models\Branch;
+use App\Models\SpecialistBranch;
 use Illuminate\Support\Facades\Auth;
 
 class SpecialistController extends Controller
@@ -129,5 +130,24 @@ class SpecialistController extends Controller
     {
         $branches = Branch::all();
         return new GeneralCollection($branches);
+    }
+
+    public function set_branch(Request $request)
+    {
+        $user_id = Auth::id();
+        $specialist = Specialist::where('id_user', $user_id)->first();
+        $specialist_branch = SpecialistBranch::where('specialist_id', $specialist->id)->first();
+        if ($specialist_branch != null) {
+            $branch_id = Branch::find($request->branch);
+            $specialist_branch->branch_id = $branch_id;
+            $specialist_branch->save();
+        } else {
+            $specialist_branch = new SpecialistBranch();
+            $specialist_branch->specialist_id = $specialist->id;
+            $branch_id = Branch::find($request->branch);
+            $specialist_branch->branch_id = $branch_id;
+            $specialist_branch->save();
+        }
+        return response()->json(['success']);
     }
 }
