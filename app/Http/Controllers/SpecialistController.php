@@ -58,13 +58,22 @@ class SpecialistController extends Controller
     public function show(Specialist $specialist)
     {
         //
-        return response()->json(['specialists' => Specialist::all()]);
+        $specialists = Specialist::all();
+        foreach ($specialists as $key => $value) {
+            $specialist_branch = SpecialistBranch::where('id_specialist', $value->id)->first();
+            $branch = Branch::where('id', $specialist_branch->id_branch)->first();
+            $value->branch = $branch->name;
+        }
+        return response()->json(['specialists' => $specialists]);
     }
 
     public function show_id($id_specialist)
     {
         $specialist = Specialist::where('id', $id_specialist)
             ->first();
+        $specialist_branch = SpecialistBranch::where('id_specialist', $id_specialist)->first();
+        $branch = Branch::where('id', $specialist_branch->id_branch)->first();
+        $specialist->branch = $branch->name;
         return response()->json(['data' => $specialist]);
     }
 

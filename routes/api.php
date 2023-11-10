@@ -64,7 +64,7 @@ Route::group([], function () {
 });
 
 //Rutas de routine_event 
-Route::group([], function(){
+Route::group([], function () {
     Route::post('/routine_event_store', [RoutineEventsController::class, 'store']);
     Route::post('/borrar_evento', [RoutineEventsController::class, 'destroy']);
 });
@@ -103,7 +103,7 @@ Route::group([], function () {
 });
 
 //Rutas de specialista
-Route::group([], function(){
+Route::group([], function () {
     Route::get('/specialists', [SpecialistController::class, 'show']);
     Route::get('/specialists/{id}', [SpecialistController::class, 'show_id']);
     Route::get('/specialist_requests', [SpecialistController::class, 'index']);
@@ -118,7 +118,7 @@ Route::group([], function(){
 Route::get('/status_student', [SpecialistController::class, 'get_estados']);
 
 //Rutas de planes 
-Route::group([],function(){
+Route::group([], function () {
     Route::post('/get_planes_student', [SpecialityPlanController::class, 'index']);
     Route::post('/change_plan_status', [SpecialityPlanController::class, 'change_status']);
     Route::post('/borrar_plan', [SpecialityPlanController::class, 'borrar_plan']);
