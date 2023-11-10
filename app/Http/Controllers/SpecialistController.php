@@ -136,16 +136,16 @@ class SpecialistController extends Controller
     {
         $user_id = Auth::id();
         $specialist = Specialist::where('id_user', $user_id)->first();
-        $specialist_branch = SpecialistBranch::where('specialist_id', $specialist->id)->first();
+        $specialist_branch = SpecialistBranch::where('id_specialist', $specialist->id)->first();
         if ($specialist_branch != null) {
-            $branch_id = Branch::find($request->branch);
-            $specialist_branch->branch_id = $branch_id;
+            $branch = Branch::where('name', $request->branch)->first();
+            $specialist_branch->id_branch = $branch->id;
             $specialist_branch->save();
         } else {
             $specialist_branch = new SpecialistBranch();
-            $specialist_branch->specialist_id = $specialist->id;
-            $branch_id = Branch::find($request->branch);
-            $specialist_branch->branch_id = $branch_id;
+            $specialist_branch->id_specialist = $specialist->id;
+            $branch = Branch::where('name', $request->branch)->first();
+            $specialist_branch->id_branch = $branch->id;
             $specialist_branch->save();
         }
         return response()->json(['success']);
