@@ -20,12 +20,8 @@ class SoapController extends Controller
 
         try {
             $response = $client->__soapCall('FullCountryInfo', [$params]);
-            // Process the response as needed
-            // For example, you can access the country name using $response->FullCountryInfoResult->sName
-
             return response()->json($response);
         } catch (\SoapFault $e) {
-            // Handle any SOAP errors
             return response()->json(['error' => $e->getMessage()]);
         }
     }

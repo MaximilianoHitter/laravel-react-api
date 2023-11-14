@@ -23,7 +23,7 @@ class Specialist extends Model
     ];
 
     public function branches():HasManyThrough{
-        return $this->hasManyThrough(Branch::class, SpecialistBranch::class);
+        return $this->hasManyThrough(Branch::class, SpecialistBranch::class, 'id_specialist', 'id');
     }
 
     public function students():BelongsToMany{

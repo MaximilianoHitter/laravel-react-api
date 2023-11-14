@@ -29,7 +29,7 @@ class SpecialityPlan extends Model
     }
 
     public function specialist():BelongsTo{
-        return $this->belongsTo(Specialist::class);
+        return $this->belongsTo(Specialist::class, 'specialist_id');
     }
 
     public function payment():BelongsTo{

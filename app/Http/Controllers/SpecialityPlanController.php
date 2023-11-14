@@ -23,7 +23,7 @@ class SpecialityPlanController extends Controller
         $user_id = Auth::id();
         $specialist = Specialist::where('id_user', $user_id)->first();
         $student_id = $request->student_id;
-        $planes = SpecialityPlan::where('student_id', $student_id)->where('specialist_id', $specialist->id)->with('student', 'payment', 'status')->get();
+        $planes = SpecialityPlan::where('student_id', $student_id)->where('specialist_id', $specialist->id)->with('student', 'payment', 'status', 'specialist.branches')->get();
         return new GeneralCollection($planes);
     }
 
@@ -111,7 +111,7 @@ class SpecialityPlanController extends Controller
     }
 
     public function get_plan(Request $request){
-        $routine = SpecialityPlan::where('id', $request->specialist_plan_id)->with('specialist')->first();
+        $routine = SpecialityPlan::where('id', $request->specialist_plan_id)->with('specialist', 'specialist.branches')->first();
         return response()->json(['data'=>$routine]);
     }
 
@@ -132,7 +132,7 @@ class SpecialityPlanController extends Controller
         }
         $payment->path_archivo = $path[0];
         $payment->save();
-        $routine = SpecialityPlan::find($request->specialist_plan_id);
+        $routine = SpecialityPlan::find($request->trainerroutine_id);
         $routine->id_payment = $payment->id;
         $routine->save();
         return response()->json(['data'=>'success'], 200);

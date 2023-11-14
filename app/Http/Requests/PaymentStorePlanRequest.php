@@ -22,7 +22,7 @@ class PaymentStorePlanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'specialist_plan_id'=>'required|exists:speciality_plans,id',
+            'trainerroutine_id'=>'required|exists:speciality_plans,id',
             'amount'=>'required|numeric',
             'reason'=>'required|string',
             'payment_type'=>'required|string'
