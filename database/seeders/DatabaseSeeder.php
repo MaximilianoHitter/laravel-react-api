@@ -19,6 +19,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Branch;
+use App\Models\SpecialistBranch;
 
 class DatabaseSeeder extends Seeder
 {
@@ -155,6 +156,23 @@ class DatabaseSeeder extends Seeder
             'description' => 'Hacer el dia 3'
         ]);
 
+        Branch::create([
+            'name' => 'Kinesiólogo',
+            'description' => 'Especialista para prevenir y tratar lesiones deportivas.',
+        ]);
+        Branch::create([
+            'name' => 'Nutricionista',
+            'description' => 'Diseña planes alimenticios para mejorar la salud de los deportistas.',
+        ]);
+        Branch::create([
+            'name' => 'Traumatólogo',
+            'description' => 'Diagnostica, trata y rehabilita lesiones de los huesos y articulaciones.',
+        ]);
+        Branch::create([
+            'name' => 'Psicólogo',
+            'description' => 'Ayuda a los deportistas a superar sus problemas emocionales y mentales.',
+        ]);
+
         User::factory()->create([
             'name' => 'gandalf',
             'email' => 'gandalf@admin.com',
@@ -171,6 +189,11 @@ class DatabaseSeeder extends Seeder
             'weight' => 80,
             'height' => 200,
             'description' => 'Un mago pesa lo que debe pesar, ni mas, ni menos.'
+        ]);
+
+        SpecialistBranch::create([
+            'id_specialist' => 1,
+            'id_branch' => 1
         ]);
 
         SpecialistStudent::create([
@@ -192,21 +215,5 @@ class DatabaseSeeder extends Seeder
             'color' => '#FF0000'
         ]);
 
-        Branch::create([
-            'name' => 'Kinesiólogo',
-            'description' => 'Especialista para prevenir y tratar lesiones deportivas.',
-        ]);
-        Branch::create([
-            'name' => 'Nutricionista',
-            'description' => 'Diseña planes alimenticios para mejorar la salud de los deportistas.',
-        ]);
-        Branch::create([
-            'name' => 'Traumatólogo',
-            'description' => 'Diagnostica, trata y rehabilita lesiones de los huesos y articulaciones.',
-        ]);
-        Branch::create([
-            'name' => 'Psicólogo',
-            'description' => 'Ayuda a los deportistas a superar sus problemas emocionales y mentales.',
-        ]);
     }
 }
