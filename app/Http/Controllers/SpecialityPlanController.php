@@ -12,6 +12,9 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\File\File;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CustomMail;
+use App\Models\User;
 
 class SpecialityPlanController extends Controller
 {
@@ -53,6 +56,10 @@ class SpecialityPlanController extends Controller
         $plan->amount = $request->amount;
         $plan->color = $request->color;
         $plan->save();
+        $asd = new CustomMail();
+        $student = Student::find($request->student_id);
+        $user_student = User::find($student->id_user);
+        Mail::to($user_student->email)->send($asd->mailCreatePlan($specialist->name, $plan->name));
         return response()->json(['success']);
     }
 
@@ -135,6 +142,15 @@ class SpecialityPlanController extends Controller
         $routine = SpecialityPlan::find($request->trainerroutine_id);
         $routine->id_payment = $payment->id;
         $routine->save();
+        $asd = new CustomMail();
+        $student = Student::find($request->student_id);
+        $user_student = User::find($student->id_user);
+        //mail para el student
+        Mail::to($user_student->email)->send($asd->mailPaymentCreateStudent($routine->name));
+        //mail pal specialist 
+        $specialist = Specialist::find($routine->specialist_id);
+        $user_specialist = User::find($specialist->id_user);
+        Mail::to($user_specialist->email)->send($asd->mailPaymentCreate($student->name, $routine->name));
         return response()->json(['data'=>'success'], 200);
     }
 

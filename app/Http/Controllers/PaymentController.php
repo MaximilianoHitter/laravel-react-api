@@ -12,6 +12,8 @@ use App\Models\TrainerRoutine;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CustomMail;
 
 class PaymentController extends Controller
 {
@@ -95,6 +97,14 @@ class PaymentController extends Controller
         $routine = TrainerRoutine::find($request->trainerroutine_id);
         $routine->id_payment = $payment->id;
         $routine->save();
+        $asd = new CustomMail();
+        $trainer = Trainer::find($routine->id_trainer);
+        $user_trainer = User::find($trainer->id_user);
+        //envio de mail al trainer
+        Mail::to($user_trainer->email)->send($asd->mailPaymentCreate($student->name, $routine->name));
+        //envio de mail al estudiante
+        $user_student = User::find($user_id);
+        Mail::to($user_student->email)->send($asd->mailPaymentCreateStudent($routine->name));
         return response()->json(['data'=>'success'], 200);
     }
 
