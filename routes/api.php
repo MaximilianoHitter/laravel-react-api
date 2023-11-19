@@ -112,6 +112,7 @@ Route::group([], function () {
     Route::post('/change_student_status', [SpecialistController::class, 'change_student_status']);
     Route::get('/get_branches', [SpecialistController::class, 'get_branches']);
     Route::post('/set_branch', [SpecialistController::class, 'set_branch']);
+    Route::get('/get_specialist_socials/{id}', [SpecialistController::class, 'get_specialist_socials']);
 });
 
 //Rutas de status_student 

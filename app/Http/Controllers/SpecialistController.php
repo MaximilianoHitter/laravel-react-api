@@ -9,7 +9,9 @@ use App\Models\SpecialityPlan;
 use App\Models\StatusStudent;
 use Illuminate\Http\Request;
 use App\Models\Branch;
+use App\Models\Social;
 use App\Models\SpecialistBranch;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class SpecialistController extends Controller
@@ -158,5 +160,13 @@ class SpecialistController extends Controller
             $specialist_branch->save();
         }
         return response()->json(['success']);
+    }
+
+    public function get_specialist_socials($id_specialist)
+    {
+        $specialist = Specialist::where('id', $id_specialist)->first();
+        $user = User::where('id', $specialist->id_user)->first();
+        $social = Social::where('id_user', $user->id)->first();
+        return response()->json(['data' => $social]);
     }
 }

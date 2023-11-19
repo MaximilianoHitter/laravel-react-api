@@ -12,6 +12,7 @@ use App\Models\Status;
 use App\Models\StatusStudent;
 use App\Models\Student;
 use App\Models\StudentGoal;
+use App\Models\Social;
 use App\Models\Trainer;
 use App\Models\TrainerRoutine;
 use App\Models\TrainerStudent;
@@ -191,6 +192,14 @@ class DatabaseSeeder extends Seeder
             'description' => 'Un mago pesa lo que debe pesar, ni mas, ni menos.'
         ]);
 
+        Social::create([
+            'id_user' => 5,
+            'facebook' => 'https://www.facebook.com/gandalf',
+            'instagram' => 'https://www.instagram.com/gandalf',
+            'twitter' => 'https://www.twitter.com/gandalf',
+            'linkedin' => 'https://www.linkedin.com/in/gandalf',
+        ]);
+
         SpecialistBranch::create([
             'id_specialist' => 1,
             'id_branch' => 1
@@ -214,6 +223,5 @@ class DatabaseSeeder extends Seeder
             'amount' => 1800,
             'color' => '#FF0000'
         ]);
-
     }
 }
