@@ -155,6 +155,7 @@ Route::get('/get-role', [PermissionsController::class, 'user_rol']);
 
 Route::post('/set_profile_data', [StudentController::class, 'set_profile_data']);
 Route::post('/set_perfil_data', [UserController::class, 'set_perfil_data']);
+Route::post('/set_socials_data', [UserController::class, 'set_socials_data']);
 
 // Rutas que dependen del rol del usuario
 Route::group([], function () {

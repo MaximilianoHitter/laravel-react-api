@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Social;
 use App\Models\Specialist;
 use App\Models\Student;
 use App\Models\Trainer;
@@ -39,4 +40,45 @@ class UserController extends Controller
 
     return response()->json(['data' => 'success'], 200);
   }
+
+  public function set_socials_data(Request $request)
+  {
+    $user_id = Auth::id();
+    $user = null;
+
+    if (Student::where('id_user', $user_id)->first()) {
+      $user = Student::where('id_user', $user_id)->first();
+    } elseif (Trainer::where('id_user', $user_id)->first()) {
+      $user = Trainer::where('id_user', $user_id)->first();
+    } elseif (Specialist::where('id_user', $user_id)->first()) {
+      $user = Specialist::where('id_user', $user_id)->first();
+    }
+
+    if ($user === null) {
+      return response()->json(['error' => 'User not found'], 404);
+    }
+
+    $social = Social::where('id_user', $user_id)->first();
+    if ($social != null) {
+      $social->facebook = $request->facebook;
+      $social->instagram = $request->instagram;
+      $social->twitter = $request->twitter;
+      $social->linkedin = $request->linkedin;
+      $social->whatsapp = $request->whatsapp;
+      $social->telephone = $request->telephone;
+      $social->save();
+    } else {
+      $social = new Social();
+      $social->id_user = $user_id;
+      $social->facebook = $request->facebook;
+      $social->instagram = $request->instagram;
+      $social->twitter = $request->twitter;
+      $social->linkedin = $request->linkedin;
+      $social->whatsapp = $request->whatsapp;
+      $social->telephone = $request->telephone;
+      $social->save();
+    }
+    return response()->json(['data' => 'success'], 200);
+  }
+
 }
