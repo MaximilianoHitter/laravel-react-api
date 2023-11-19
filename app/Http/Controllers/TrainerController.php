@@ -128,7 +128,7 @@ class TrainerController extends Controller
         $trainer = Trainer::where('id_user', $id_trainer)
             ->first();
         $cantidad_alumnos = TrainerStudent::where('trainer_id', $trainer->id)
-            ->where('status', 'Activo')
+            ->where('status_student_id', '2')
             ->count();
         $trainer->qty_students = $cantidad_alumnos;
         $cantidad_certificados = Certificate::where('id_trainer', $trainer->id)
@@ -148,4 +148,5 @@ class TrainerController extends Controller
             return response()->json(['errors'=>['general'=>'algo paso']], 422);
         }
     }
+
 }
