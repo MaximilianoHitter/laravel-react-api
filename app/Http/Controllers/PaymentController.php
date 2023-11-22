@@ -89,8 +89,12 @@ class PaymentController extends Controller
         $files = $request->file('files');
 
         $path = [];
-        foreach ($files as $key => $value) {
-            $path[] = $value->store();
+        if($files != null){
+            foreach ($files as $key => $value) {
+                $path[] = $value->store();
+            }
+        }else{
+            $path[0] = '';
         }
         $payment->path_archivo = $path[0];
         $payment->save();
