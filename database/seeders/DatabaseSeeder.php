@@ -181,6 +181,20 @@ class DatabaseSeeder extends Seeder
             'status' => 'Activo'
         ])->assignRole('Especialista');
 
+        User::factory()->create([
+            'name' => 'elrond',
+            'email' => 'elrond@admin.com',
+            'password' => Hash::make('admin'),
+            'status' => 'Activo'
+        ])->assignRole('Especialista');
+
+        User::factory()->create([
+            'name' => 'balrog',
+            'email' => 'balrog@admin.com',
+            'password' => Hash::make('admin'),
+            'status' => 'Activo'
+        ])->assignRole('Especialista');
+
         Specialist::create([
             'id_user' => 5,
             'name' => 'Gandalf',
@@ -192,17 +206,65 @@ class DatabaseSeeder extends Seeder
             'description' => 'Un mago pesa lo que debe pesar, ni mas, ni menos.'
         ]);
 
+        Specialist::create([
+            'id_user' => 6,
+            'name' => 'Elrond',
+            'last_name' => '',
+            'profile_picture_url' => 'https://static.wikia.nocookie.net/lotr/images/9/9f/Elrond_of_Rivendell.jpg/revision/latest/scale-to-width-down/1200?cb=20230718101143',
+            'day_of_birth' => '532-01-01',
+            'weight' => 86,
+            'height' => 188,
+            'description' => 'Soy muy fuerte y sabio, nadie me para.'
+        ]);
+
+        Specialist::create([
+            'id_user' => 7,
+            'name' => 'Balrog',
+            'last_name' => 'Maiar',
+            'profile_picture_url' => 'https://i.pinimg.com/736x/cb/6c/a8/cb6ca80b0607d4026165fd9b74d958d9.jpg',
+            'day_of_birth' => '400-01-01',
+            'weight' => 500,
+            'height' => 428,
+            'description' => 'Roar.'
+        ]);
+
         Social::create([
             'id_user' => 5,
             'facebook' => 'https://www.facebook.com/gandalf',
             'instagram' => 'https://www.instagram.com/gandalf',
             'twitter' => 'https://www.twitter.com/gandalf',
-            'linkedin' => 'https://www.linkedin.com/in/gandalf',
+            'linkedin' => 'https://www.linkedin.com/in/gandalf'
+        ]);
+
+        Social::create([
+            'id_user' => 6,
+            'facebook' => 'https://www.facebook.com/elrond',
+            'instagram' => 'https://www.instagram.com/elrond',
+            'twitter' => 'https://www.twitter.com/elrond',
+            'linkedin' => 'https://www.linkedin.com/in/elrond'
+        ]);
+
+        Social::create([
+            'id_user' => 7,
+            'facebook' => 'https://www.facebook.com/balrog',
+            'instagram' => 'https://www.instagram.com/balrog',
+            'twitter' => 'https://www.twitter.com/balrog',
+            'linkedin' => 'https://www.linkedin.com/in/balrog'
         ]);
 
         SpecialistBranch::create([
             'id_specialist' => 1,
             'id_branch' => 1
+        ]);
+
+        SpecialistBranch::create([
+            'id_specialist' => 2,
+            'id_branch' => 4
+        ]);
+
+        SpecialistBranch::create([
+            'id_specialist' => 3,
+            'id_branch' => 2
         ]);
 
         SpecialistStudent::create([
