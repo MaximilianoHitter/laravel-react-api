@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CustomMail;
 use App\Models\User;
+use Carbon\Carbon;
 
 class SpecialityPlanController extends Controller
 {
@@ -27,7 +28,16 @@ class SpecialityPlanController extends Controller
         $specialist = Specialist::where('id_user', $user_id)->first();
         $student_id = $request->student_id;
         $planes = SpecialityPlan::where('student_id', $student_id)->where('specialist_id', $specialist->id)->with('student', 'payment', 'status', 'specialist.branches')->get();
-        return new GeneralCollection($planes);
+        $planes_format = [];
+        foreach ($planes as $pl) {
+            $plan = null;
+            $plan = $pl;
+            $fecha_final = Carbon::create($plan->final_date);
+            $fecha_final->addDays(1);
+            $plan->nueva_fecha_final = $fecha_final->format('Y-m-d');
+            $planes_format[] = $plan;
+        }
+        return new GeneralCollection($planes_format);
     }
 
     /**
@@ -167,9 +177,14 @@ class SpecialityPlanController extends Controller
 
     public function ver_archivo($id_payment){
         $payment = Payment::find($id_payment);
-        $path = storage_path('app/'.$payment->path_archivo);
-        $file = new File($path);
-        $base = 'data:image/'.$file->getExtension().";base64,".base64_encode(file_get_contents($file));
-        return response()->json(['data'=>$base]);
+        if($payment->path_archivo != ''){
+            $path = storage_path('app/'.$payment->path_archivo);
+            $file = new File($path);
+            $base = 'data:image/'.$file->getExtension().";base64,".base64_encode(file_get_contents($file));
+            return response()->json(['data'=>$base]);
+        }else{
+            return response()->json(['data'=>'']);
+        }
+        
     }
 }
