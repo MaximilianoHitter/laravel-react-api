@@ -134,17 +134,21 @@ class SpecialityPlanController extends Controller
         $files = $request->file('files');
 
         $path = [];
-        foreach ($files as $key => $value) {
-            $path[] = $value->store();
+        if($files != null){
+            foreach ($files as $key => $value) {
+                $path[] = $value->store();
+            }
+        }else{
+            $path[0] = '';
         }
         $payment->path_archivo = $path[0];
         $payment->save();
         $routine = SpecialityPlan::find($request->trainerroutine_id);
         $routine->id_payment = $payment->id;
         $routine->save();
-        $asd = new CustomMail();
-        $student = Student::find($request->student_id);
-        $user_student = User::find($student->id_user);
+        $asd = new CustomMail();/* 
+        $student = Student::find($request->student_id); */
+        $user_student = User::find(Auth::id());
         //mail para el student
         Mail::to($user_student->email)->send($asd->mailPaymentCreateStudent($routine->name));
         //mail pal specialist 
