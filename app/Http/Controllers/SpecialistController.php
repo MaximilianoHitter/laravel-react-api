@@ -169,4 +169,20 @@ class SpecialistController extends Controller
         $social = Social::where('id_user', $user->id)->first();
         return response()->json(['data' => $social]);
     }
+
+    public function get_specialist_plans()
+    {
+        $user_id = Auth::id();
+        $specialist = Specialist::where('id_user', $user_id)->first();
+        $plans = SpecialityPlan::where('specialist_id', $specialist->id)->get();
+
+        $totalAmount = $plans->sum('amount');
+        $totalAmountWithPayment = $plans->whereNotNull('id_payment')->sum('amount');
+
+        return response()->json([
+            'plans' => $plans,
+            'totalAmount' => $totalAmount,
+            'totalAmountWithPayment' => $totalAmountWithPayment
+        ]);
+    }
 }
