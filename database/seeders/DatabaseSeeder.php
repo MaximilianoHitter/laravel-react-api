@@ -98,21 +98,39 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'legolas',
-            'email' => 'legolas@admin.com',
+            'name' => 'gabriel',
+            'email' => 'gabriel@admin.com',
+            'password' => Hash::make('admin'),
+            'status' => 'Activo'
+        ])->assignRole('Trainer');
+
+        User::factory()->create([
+            'name' => 'jose',
+            'email' => 'jose@admin.com',
             'password' => Hash::make('admin'),
             'status' => 'Activo'
         ])->assignRole('Trainer');
 
         Trainer::create([
             'id_user' => 4,
-            'name' => 'Legolas',
-            'last_name' => 'Hojaverde',
-            'profile_picture_url' => 'https://images.unsplash.com/photo-1645544622368-c4b690a13e67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8TGVnb2xhc3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80',
+            'name' => 'Gabriel',
+            'last_name' => 'Gonzalez',
+            'profile_picture_url' => 'https://images.unsplash.com/photo-1584466977773-e625c37cdd50?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
             'day_of_birth' => '1994-04-11',
             'weight' => 45.50,
             'height' => 178.5,
-            'description' => 'Especialista en Tonificar los cojone'
+            'description' => 'Especialista en aumentar masa muscular.'
+        ]);
+
+        Trainer::create([
+            'id_user' => 5,
+            'name' => 'Jose',
+            'last_name' => 'Veiga',
+            'profile_picture_url' => 'https://images.unsplash.com/photo-1619361728853-2542f3864532?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'day_of_birth' => '1997-04-11',
+            'weight' => 69,
+            'height' => 171,
+            'description' => 'Especialista en resistencia.',
         ]);
 
         TrainerStudent::create([
@@ -175,81 +193,107 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'gandalf',
-            'email' => 'gandalf@admin.com',
+            'name' => 'juan',
+            'email' => 'juan@admin.com',
             'password' => Hash::make('admin'),
             'status' => 'Activo'
         ])->assignRole('Especialista');
 
         User::factory()->create([
-            'name' => 'elrond',
-            'email' => 'elrond@admin.com',
+            'name' => 'lucas',
+            'email' => 'lucas@admin.com',
             'password' => Hash::make('admin'),
             'status' => 'Activo'
         ])->assignRole('Especialista');
 
         User::factory()->create([
-            'name' => 'balrog',
-            'email' => 'balrog@admin.com',
+            'name' => 'carla',
+            'email' => 'carla@admin.com',
             'password' => Hash::make('admin'),
             'status' => 'Activo'
         ])->assignRole('Especialista');
 
-        Specialist::create([
-            'id_user' => 5,
-            'name' => 'Gandalf',
-            'last_name' => 'The Gray',
-            'profile_picture_url' => 'https://images.unsplash.com/photo-1600637453426-7c64826b19d9?auto=format&fit=crop&q=80&w=1288&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'day_of_birth' => '1550-01-01',
-            'weight' => 80,
-            'height' => 200,
-            'description' => 'Un mago pesa lo que debe pesar, ni mas, ni menos.'
+        User::factory()->create([
+            'name' => 'nicolas',
+            'email' => 'nicolas@admin.com',
+            'password' => Hash::make('admin'),
+            'status' => 'Activo'
         ]);
 
         Specialist::create([
             'id_user' => 6,
-            'name' => 'Elrond',
-            'last_name' => '',
-            'profile_picture_url' => 'https://static.wikia.nocookie.net/lotr/images/9/9f/Elrond_of_Rivendell.jpg/revision/latest/scale-to-width-down/1200?cb=20230718101143',
-            'day_of_birth' => '532-01-01',
-            'weight' => 86,
-            'height' => 188,
-            'description' => 'Soy muy fuerte y sabio, nadie me para.'
+            'name' => 'Juan',
+            'last_name' => 'Martinez',
+            'profile_picture_url' => 'https://img.freepik.com/foto-gratis/fisioterapeuta-ayudando-al-paciente-plano-medio_23-2149866151.jpg?w=740&t=st=1701546845~exp=1701547445~hmac=84cfa8e88daa32f968727c2218cbf2925b2dd5ec2d29adca057bd5d702d698e2',
+            'day_of_birth' => '1978-01-08',
+            'weight' => 71,
+            'height' => 173,
+            'description' => 'Kinesiólogo deportivo.'
         ]);
 
         Specialist::create([
             'id_user' => 7,
-            'name' => 'Balrog',
+            'name' => 'Lucas',
+            'last_name' => 'Vitto',
+            'profile_picture_url' => 'https://img.freepik.com/foto-gratis/terapeuta-tiro-medio-portapapeles-mirando-mujer_23-2148759111.jpg?w=740&t=st=1701548056~exp=1701548656~hmac=e781c71d96e4471215e8731c5d522979d2686c031586ce6c638a43312651da8e',
+            'day_of_birth' => '1980-08-24',
+            'weight' => 78,
+            'height' => 180,
+            'description' => 'Mente sana, cuerpo sano, mayor rendimiento.'
+        ]);
+
+        Specialist::create([
+            'id_user' => 8,
+            'name' => 'Carla',
             'last_name' => 'Maiar',
-            'profile_picture_url' => 'https://i.pinimg.com/736x/cb/6c/a8/cb6ca80b0607d4026165fd9b74d958d9.jpg',
-            'day_of_birth' => '400-01-01',
-            'weight' => 500,
-            'height' => 428,
-            'description' => 'Roar.'
+            'profile_picture_url' => 'https://img.freepik.com/foto-gratis/retrato-doctor_144627-39387.jpg?w=740&t=st=1701547063~exp=1701547663~hmac=9bd932585ea9d66c3497ceccaab3082b96754153f53399df08f1ebd79e2e67ce',
+            'day_of_birth' => '1983-09-14',
+            'weight' => 65,
+            'height' => 167,
+            'description' => 'Orden nutricional para mejorar tu rendimiento.'
         ]);
 
-        Social::create([
-            'id_user' => 5,
-            'facebook' => 'https://www.facebook.com/gandalf',
-            'instagram' => 'https://www.instagram.com/gandalf',
-            'twitter' => 'https://www.twitter.com/gandalf',
-            'linkedin' => 'https://www.linkedin.com/in/gandalf'
+        Specialist::create([
+            'id_user' => 9,
+            'name' => 'Nicolas',
+            'last_name' => 'Perez',
+            'profile_picture_url' => 'https://img.freepik.com/foto-gratis/hombres-medico-vendaje-pie-paciente-femenino_1170-2174.jpg?w=740&t=st=1701547182~exp=1701547782~hmac=297143a74c117bad5610c2ac954abd3b24f334342b855aba92e214b1080d8b7a',
+            'day_of_birth' => '1985-11-30',
+            'weight' => 79,
+            'height' => 181,
+            'description' => 'Traumatólogo deportivo.'
         ]);
 
         Social::create([
             'id_user' => 6,
-            'facebook' => 'https://www.facebook.com/elrond',
-            'instagram' => 'https://www.instagram.com/elrond',
-            'twitter' => 'https://www.twitter.com/elrond',
-            'linkedin' => 'https://www.linkedin.com/in/elrond'
+            'facebook' => 'https://www.facebook.com/juan',
+            'instagram' => 'https://www.instagram.com/juan',
+            'twitter' => 'https://www.twitter.com/juan',
+            'linkedin' => 'https://www.linkedin.com/in/juan'
         ]);
 
         Social::create([
             'id_user' => 7,
-            'facebook' => 'https://www.facebook.com/balrog',
-            'instagram' => 'https://www.instagram.com/balrog',
-            'twitter' => 'https://www.twitter.com/balrog',
-            'linkedin' => 'https://www.linkedin.com/in/balrog'
+            'facebook' => 'https://www.facebook.com/lucas',
+            'instagram' => 'https://www.instagram.com/lucas',
+            'twitter' => 'https://www.twitter.com/lucas',
+            'linkedin' => 'https://www.linkedin.com/in/lucas'
+        ]);
+
+        Social::create([
+            'id_user' => 8,
+            'facebook' => 'https://www.facebook.com/carla',
+            'instagram' => 'https://www.instagram.com/carla',
+            'twitter' => 'https://www.twitter.com/carla',
+            'linkedin' => 'https://www.linkedin.com/in/carla'
+        ]);
+
+        Social::create([
+            'id_user' => 9,
+            'facebook' => 'https://www.facebook.com/nicolas',
+            'instagram' => 'https://www.instagram.com/nicolas',
+            'twitter' => 'https://www.twitter.com/nicolas',
+            'linkedin' => 'https://www.linkedin.com/in/nicolas'
         ]);
 
         SpecialistBranch::create([
@@ -265,6 +309,11 @@ class DatabaseSeeder extends Seeder
         SpecialistBranch::create([
             'id_specialist' => 3,
             'id_branch' => 2
+        ]);
+
+        SpecialistBranch::create([
+            'id_specialist' => 4,
+            'id_branch' => 3
         ]);
 
         SpecialistStudent::create([
