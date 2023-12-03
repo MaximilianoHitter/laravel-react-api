@@ -176,13 +176,13 @@ class SpecialistController extends Controller
         if($request->fecha_inicio != null && $request->fecha_fin != null){
             $user_id = Auth::id();
             $specialist = Specialist::where('id_user', $user_id)->first();
-            $plans = SpecialityPlan::where('specialist_id', $specialist->id)
+            $plans = SpecialityPlan::with('student')->where('specialist_id', $specialist->id)
             ->where('initial_date', '>=', $request->fecha_inicio)->where('final_date', '<=', $request->fecha_fin)
             ->get();
         }else{ 
             $user_id = Auth::id();
             $specialist = Specialist::where('id_user', $user_id)->first();
-            $plans = SpecialityPlan::where('specialist_id', $specialist->id)->get();
+            $plans = SpecialityPlan::with('student')->where('specialist_id', $specialist->id)->get();
     
         }
         $totalAmount = $plans->sum('amount');
