@@ -185,6 +185,9 @@ class SpecialistController extends Controller
             $plans = SpecialityPlan::with('student')->where('specialist_id', $specialist->id)->get();
     
         }
+        foreach ($plans as $key => $value) {
+            $value->color_fill = $value->color;
+        }
         $totalAmount = $plans->sum('amount');
         $totalAmountWithPayment = $plans->whereNotNull('id_payment')->sum('amount');
 
