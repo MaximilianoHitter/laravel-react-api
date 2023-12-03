@@ -50,24 +50,24 @@ class DatabaseSeeder extends Seeder
         ])->assignRole('Admin');
 
         User::factory()->create([
-            'name' => 'merrin',
-            'email' => 'merrin@admin.com',
+            'name' => 'laura',
+            'email' => 'laura@admin.com',
             'password' => Hash::make('admin'),
             'status' => 'Activo'
         ])->assignRole('Alumno');
 
         User::factory()->create([
-            'name' => 'pipin',
-            'email' => 'pipin@admin.com',
+            'name' => 'federico',
+            'email' => 'fede@admin.com',
             'password' => Hash::make('admin'),
             'status' => 'Activo'
         ])->assignRole('Alumno');
 
         Student::create([
             'id_user' => 2,
-            'name' => 'Merrin',
-            'last_name' => 'Brandigamo',
-            'profile_picture_url' => '',
+            'name' => 'Laura',
+            'last_name' => 'Gimenez',
+            'profile_picture_url' => 'https://images.unsplash.com/photo-1590556409324-aa1d726e5c3c?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
             'day_of_birth' => '2000-05-14',
             'weight' => 70.50,
             'height' => 60.50
@@ -75,9 +75,9 @@ class DatabaseSeeder extends Seeder
 
         Student::create([
             'id_user' => 3,
-            'name' => 'Pipin',
-            'last_name' => 'Tuk',
-            'profile_picture_url' => '',
+            'name' => 'Federico',
+            'last_name' => 'Valdez',
+            'profile_picture_url' => 'https://images.unsplash.com/photo-1516442719524-a603408c90cb?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
             'day_of_birth' => '1996-05-14',
             'weight' => 75.60,
             'height' => 65.20
@@ -85,15 +85,15 @@ class DatabaseSeeder extends Seeder
 
         StudentGoal::create([
             'id_student' => 2,
-            'name' => 'Conseguir cerveza',
-            'description' => 'asd',
+            'name' => 'Ganar masa muscular',
+            'description' => 'Quiero ganar masa muscular',
             'goal_status' => 'Iniciado'
         ]);
 
         StudentGoal::create([
             'id_student' => 1,
-            'name' => 'Bajar de peso',
-            'description' => 'asd',
+            'name' => 'Tonificar cuerpo',
+            'description' => 'Me encuentro bien en mi peso, quiero mejorar mis músculos',
             'goal_status' => 'Iniciado'
         ]);
 
@@ -150,7 +150,7 @@ class DatabaseSeeder extends Seeder
             'id_routine_status' => 1,
             'id_payment' => null,
             'amount' => 1500,
-            'description' => 'Hacer el dia 1 | Hacer el dia 2 | Hacer el dia 3',
+            'description' => 'Rutina para perder peso',
             'color' => '#FF0000'
         ]);
 
@@ -158,21 +158,21 @@ class DatabaseSeeder extends Seeder
             'date' => '2023-09-19',
             'trainer_routine_id' => 1,
             'student_feedback' => null,
-            'description' => 'Hacer el dia 1'
+            'description' => '20 flexiones'
         ]);
 
         RoutineEvents::create([
             'date' => '2023-09-20',
             'trainer_routine_id' => 1,
             'student_feedback' => null,
-            'description' => 'Hacer el dia 2'
+            'description' => '100 abdominales'
         ]);
 
         RoutineEvents::create([
             'date' => '2023-09-21',
             'trainer_routine_id' => 1,
             'student_feedback' => null,
-            'description' => 'Hacer el dia 3'
+            'description' => 'trotar 1km'
         ]);
 
         Branch::create([
