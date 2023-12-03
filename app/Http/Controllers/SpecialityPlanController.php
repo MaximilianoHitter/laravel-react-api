@@ -162,6 +162,8 @@ class SpecialityPlanController extends Controller
         //mail para el student
         Mail::to($user_student->email)->send($asd->mailPaymentCreateStudent($routine->name));
         //mail pal specialist 
+        $asd = null;
+        $asd = new CustomMail();
         $specialist = Specialist::find($routine->specialist_id);
         $user_specialist = User::find($specialist->id_user);
         Mail::to($user_specialist->email)->send($asd->mailPaymentCreate($student->name, $routine->name));

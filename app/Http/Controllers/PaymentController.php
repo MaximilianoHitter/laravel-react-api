@@ -107,6 +107,8 @@ class PaymentController extends Controller
         //envio de mail al trainer
         Mail::to($user_trainer->email)->send($asd->mailPaymentCreate($student->name, $routine->name));
         //envio de mail al estudiante
+        $asd = null;
+        $asd = new CustomMail();
         $user_student = User::find($user_id);
         Mail::to($user_student->email)->send($asd->mailPaymentCreateStudent($routine->name));
         return response()->json(['data'=>'success'], 200);
