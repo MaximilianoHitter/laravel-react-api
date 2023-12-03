@@ -38,7 +38,8 @@ class SpecialistController extends Controller
     {
         $user_id = Auth::id();
         $specialist = Specialist::where('id_user', $user_id)->first();
-        $request = SpecialistStudent::where('specialist_id', $specialist->id)->with('student', 'status_student')->get();
+        $request = SpecialistStudent::where('specialist_id', $specialist->id)->with('student', 'status_student')
+        ->where('status_student_id', 2)->get();
         $salida = [];
         foreach ($request as $key => $value) {
             $request[$key]->name = $value->student->name . ' ' . $value->student->last_name;

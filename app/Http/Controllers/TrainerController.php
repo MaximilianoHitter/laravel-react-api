@@ -97,7 +97,10 @@ class TrainerController extends Controller
     {
         $user_id = Auth::id();
         $trainer = Trainer::where('id_user', $user_id)->first();
-        $request = TrainerStudent::where('trainer_id', $trainer->id)->with('student', 'status_student')->get();
+        $request = TrainerStudent::where('trainer_id', $trainer->id)
+        ->with('student', 'status_student')
+        ->where('status_student_id', 2)
+        ->get();
         foreach ($request as $key => $value) {
             $request[$key]->name = $value->student->name.' '.$value->student->last_name;
         }
