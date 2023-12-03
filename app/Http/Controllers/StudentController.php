@@ -124,7 +124,7 @@ class StudentController extends Controller
         $trainer_student = new TrainerStudent();
         $trainer_student->student_id = $student->id;
         $trainer_student->trainer_id = $trainer->id;
-        $trainer_student->status_student_id = 2;
+        $trainer_student->status_student_id = 1;
         $trainer_student->date = Carbon::now()->format('Y-m-d');
         $trainer_student->save();
         return response()->json(['data' => 'success'], 200);
@@ -139,7 +139,7 @@ class StudentController extends Controller
         $specialist_student = new SpecialistStudent();
         $specialist_student->student_id = $student->id;
         $specialist_student->specialist_id = $specialist->id;
-        $specialist_student->status_student_id = 2;
+        $specialist_student->status_student_id = 1;
         $specialist_student->date = Carbon::now()->format('Y-m-d');
         $specialist_student->save();
         return response()->json(['data' => 'success'], 200);
