@@ -81,4 +81,33 @@ class UserController extends Controller
     return response()->json(['data' => 'success'], 200);
   }
 
+  public function get_extra_data(Request $request)
+  {
+    $user_id = Auth::id();
+    $user = null;
+    $role = $request->role;
+
+    if ($role === 'Alumno') {
+      $user = Student::where('id_user', $user_id)->first();
+    } elseif ($role === 'Trainer') {
+      $user = Trainer::where('id_user', $user_id)->first();
+    } elseif ($role === 'Especialista') {
+      $user = Specialist::where('id_user', $user_id)->first();
+    }
+
+    if ($user === null) {
+      return response()->json(['error' => 'User not found'], 404);
+    }
+
+    $social = Social::where('id_user', $user_id)->first();
+    if ($social != null) {
+      $user->facebook = $social->facebook;
+      $user->instagram = $social->instagram;
+      $user->twitter = $social->twitter;
+      $user->linkedin = $social->linkedin;
+      $user->whatsapp = $social->whatsapp;
+      $user->telephone = $social->telephone;
+    }
+    return response()->json(['data' => $user], 200);
+  }
 }

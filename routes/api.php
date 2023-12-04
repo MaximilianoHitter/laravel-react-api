@@ -164,6 +164,7 @@ Route::group([], function () {
     Route::get('/get_student_data/{id_user}', [StudentController::class, 'get_student_data']);
     Route::get('/get_trainer_data/{id_user}', [TrainerController::class, 'get_trainer_data']);
     Route::get('/get_specialist_data/{id_user}', [SpecialistController::class, 'get_specialist_data']);
+    Route::post('/get_extra_data', [UserController::class, 'get_extra_data']);
 });
 
 //sopa
