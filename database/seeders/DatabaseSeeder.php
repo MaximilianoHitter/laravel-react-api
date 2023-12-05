@@ -155,15 +155,15 @@ class DatabaseSeeder extends Seeder
             'color' => '#FF00FF'
         ]);
 
-        
+
         Payment::create([
-            'id'=>3,
-            'id_student'=> 1,
-            'amount'=>1500,
-            'reason'=>'Por la rutina',
-            'payment_type'=>'Transferencia',
-            'status'=>'Aceptado',
-            'path_archivo'=>'',
+            'id' => 3,
+            'id_student' => 1,
+            'amount' => 1500,
+            'reason' => 'Por la rutina',
+            'payment_type' => 'Transferencia',
+            'status' => 'Aceptado',
+            'path_archivo' => '',
         ]);
 
         RoutineEvents::create([
@@ -223,13 +223,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Payment::create([
-            'id'=>4,
-            'id_student'=> 1,
-            'amount'=>1500,
-            'reason'=>'Por la rutina',
-            'payment_type'=>'Transferencia',
-            'status'=>'Ingresado',
-            'path_archivo'=>'',
+            'id' => 4,
+            'id_student' => 1,
+            'amount' => 1500,
+            'reason' => 'Por la rutina',
+            'payment_type' => 'Transferencia',
+            'status' => 'Ingresado',
+            'path_archivo' => '',
         ]);
 
         Branch::create([
@@ -380,7 +380,7 @@ class DatabaseSeeder extends Seeder
             'date' => '2023-10-29'
         ]);
 
-        SpecialityPlan::create([
+        /* SpecialityPlan::create([
             'student_id' => 1,
             'specialist_id' => 1,
             'name' => "pruebita",
@@ -390,60 +390,60 @@ class DatabaseSeeder extends Seeder
             'id_plan_status' => 1,
             'amount' => 1800,
             'color' => '#FF0000'
-        ]);
+        ]); */
 
         //generar planes a mansalva
         SpecialityPlan::create([
             'student_id' => 1,
             'specialist_id' => 1,
-            'name' => "Semana sin harinas",
-            'description' => 'Durante esta semana no comer harinas',
+            'name' => "Movimientos articulares",
+            'description' => 'Realizar 3 veces al día movimientos en la articulación de la rodilla',
             'initial_date' => '2023-12-04',
             'final_date' => '2023-12-10',
             'id_plan_status' => 1,
             'amount' => 2500,
             'color' => '#7FB3D5',
-            'id_payment'=>1
+            'id_payment' => 1
         ]);
 
         Payment::create([
-            'id'=>1,
-            'id_student'=> 1,
-            'amount'=>2500,
-            'reason'=>'Por el plan',
-            'payment_type'=>'Transferencia',
-            'status'=>'Aceptado',
-            'path_archivo'=>'',
+            'id' => 1,
+            'id_student' => 1,
+            'amount' => 2500,
+            'reason' => 'Por el plan',
+            'payment_type' => 'Transferencia',
+            'status' => 'Aceptado',
+            'path_archivo' => '',
         ]);
 
         SpecialityPlan::create([
             'student_id' => 1,
             'specialist_id' => 1,
-            'name' => "Semana sin verduras de hoja",
-            'description' => 'Durante esta semana no comer verduras de hoja',
+            'name' => "Ejercicios de equilibrio",
+            'description' => 'Realizar 3 veces al día ejercicios de equilibrio en la pierna derecha',
             'initial_date' => '2023-12-11',
             'final_date' => '2023-12-17',
             'id_plan_status' => 1,
             'amount' => 2500,
             'color' => '#F0B27A',
-            'id_payment'=>2
+            'id_payment' => 2
         ]);
 
         Payment::create([
-            'id'=>2,
-            'id_student'=> 1,
-            'amount'=>2500,
-            'reason'=>'Por el plan',
-            'payment_type'=>'Transferencia',
-            'status'=>'Iniciado',
-            'path_archivo'=>'',
+            'id' => 2,
+            'id_student' => 1,
+            'amount' => 2500,
+            'reason' => 'Por el plan',
+            'payment_type' => 'Transferencia',
+            'status' => 'Iniciado',
+            'path_archivo' => '',
         ]);
 
         SpecialityPlan::create([
             'student_id' => 1,
             'specialist_id' => 1,
-            'name' => "Semana sin carnes",
-            'description' => 'Durante esta semana no comer carne',
+            'name' => "Ejercicios de flexibilidad",
+            'description' => 'Realizar 3 veces al día ejercicios de flexibilidad en la pierna derecha',
             'initial_date' => '2023-12-18',
             'final_date' => '2023-12-24',
             'id_plan_status' => 1,
