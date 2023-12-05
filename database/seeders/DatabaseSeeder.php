@@ -146,34 +146,90 @@ class DatabaseSeeder extends Seeder
             'id_trainer' => 1,
             'id_student_goal' => 2,
             'name' => 'Perder peso',
-            'final_date' => '2023-09-21',
-            'initial_date' => '2023-09-19',
+            'final_date' => '2023-12-05',
+            'initial_date' => '2023-12-19',
             'id_routine_status' => 1,
-            'id_payment' => null,
+            'id_payment' => 3,
             'amount' => 1500,
             'description' => 'Rutina para perder peso',
-            'color' => '#FF0000'
+            'color' => '#FF00FF'
+        ]);
+
+        
+        Payment::create([
+            'id'=>3,
+            'id_student'=> 1,
+            'amount'=>1500,
+            'reason'=>'Por la rutina',
+            'payment_type'=>'Transferencia',
+            'status'=>'Aceptado',
+            'path_archivo'=>'',
         ]);
 
         RoutineEvents::create([
-            'date' => '2023-09-19',
+            'date' => '2023-12-05',
             'trainer_routine_id' => 1,
             'student_feedback' => null,
             'description' => '20 flexiones'
         ]);
 
         RoutineEvents::create([
-            'date' => '2023-09-20',
+            'date' => '2023-12-08',
             'trainer_routine_id' => 1,
             'student_feedback' => null,
             'description' => '100 abdominales'
         ]);
 
         RoutineEvents::create([
-            'date' => '2023-09-21',
+            'date' => '2023-12-09',
             'trainer_routine_id' => 1,
             'student_feedback' => null,
             'description' => 'trotar 1km'
+        ]);
+
+        TrainerRoutine::create([
+            'id_student' => 1,
+            'id_trainer' => 1,
+            'id_student_goal' => 2,
+            'name' => 'Correr en la semana',
+            'final_date' => '2023-12-18',
+            'initial_date' => '2023-12-24',
+            'id_routine_status' => 1,
+            'id_payment' => 4,
+            'amount' => 1500,
+            'description' => 'Rutina para mejorar cardio',
+            'color' => '#FFFF00'
+        ]);
+
+        RoutineEvents::create([
+            'date' => '2023-12-18',
+            'trainer_routine_id' => 2,
+            'student_feedback' => null,
+            'description' => 'trotar 1km'
+        ]);
+
+        RoutineEvents::create([
+            'date' => '2023-12-19',
+            'trainer_routine_id' => 2,
+            'student_feedback' => null,
+            'description' => 'correr 20 minutos'
+        ]);
+
+        RoutineEvents::create([
+            'date' => '2023-12-20',
+            'trainer_routine_id' => 2,
+            'student_feedback' => null,
+            'description' => 'trotar y correr'
+        ]);
+
+        Payment::create([
+            'id'=>4,
+            'id_student'=> 1,
+            'amount'=>1500,
+            'reason'=>'Por la rutina',
+            'payment_type'=>'Transferencia',
+            'status'=>'Ingresado',
+            'path_archivo'=>'',
         ]);
 
         Branch::create([
