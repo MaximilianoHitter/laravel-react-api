@@ -269,6 +269,11 @@ class StudentController extends Controller
         $student = Student::where('id_user', $user_id)->first();
         $specialist = Specialist::find($request->specialist_id);
         $planes = SpecialityPlan::where('student_id', $student->id)->where('specialist_id', $request->specialist_id)->with('payment', 'status')->get();
+        foreach ($planes as $key => $value) {
+            $fecha_final = Carbon::create($value->final_date);
+            $fecha_final->addDays(1);
+            $value->nueva_fecha_final = $fecha_final->format('Y-m-d');
+        }
         return new GeneralCollection($planes);
     }
 }
